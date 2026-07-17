@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase'
+import { adminSupabase } from '@/lib/supabase-admin'
 
 export type Foto = {
   id: string
@@ -9,6 +10,10 @@ export type Foto = {
   url_foto: string
   fecha_subida: string
   expira_en: string
+}
+
+export type FotoConLugar = Foto & {
+  lugares: { nombre: string } | null
 }
 
 export type FotosByCriteriaParams = {
@@ -44,14 +49,15 @@ export async function getFotosByCodigo(codigo: string): Promise<Foto[]> {
   return data ?? []
 }
 
-export async function getFotosAdmin(): Promise<Foto[]> {
-  const { data, error } = await supabase
+// Usa adminSupabase para ver TODAS las fotos incluyendo expiradas
+export async function getFotosAdmin(): Promise<FotoConLugar[]> {
+  const { data, error } = await adminSupabase
     .from('fotos')
     .select('*, lugares(nombre)')
     .order('fecha_subida', { ascending: false })
 
   if (error) throw error
-  return data ?? []
+  return (data ?? []) as FotoConLugar[]
 }
 
 export async function deleteFoto(id: string): Promise<void> {
