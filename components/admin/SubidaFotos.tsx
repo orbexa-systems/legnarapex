@@ -24,8 +24,6 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [subiendo, setSubiendo] = useState(false)
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL
-
   function agregarArchivos(files: FileList | null) {
     if (!files) return
     const nuevos: ArchivoEstado[] = Array.from(files)
@@ -83,7 +81,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
         reject(new Error(msg))
       }
 
-      xhr.open('POST', `${apiUrl}/fotos/upload`)
+      xhr.open('POST', '/api/admin/upload')
       xhr.send(form)
     })
   }
@@ -119,13 +117,13 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
         Subir fotos
       </h2>
 
-      {/* Advertencia si backend no está configurado */}
-      {!apiUrl && (
+      {/* Advertencia si backend no está configurado (variable pública de señal) */}
+      {!process.env.NEXT_PUBLIC_API_URL && (
         <div className="mb-4 flex items-center gap-2 rounded-lg border border-yellow-900/40 bg-yellow-950/20 px-3 py-2.5 text-xs text-yellow-400">
           <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
-          Backend no configurado. Define <code className="mx-1 font-mono">NEXT_PUBLIC_API_URL</code> cuando Spring Boot esté listo.
+          Backend no conectado. Define <code className="mx-1 font-mono">API_URL</code> y <code className="mx-1 font-mono">NEXT_PUBLIC_API_URL</code> cuando Spring Boot esté listo.
         </div>
       )}
 
@@ -248,7 +246,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
             {pendientes > 0 && (
               <button
                 onClick={iniciarSubida}
-                disabled={!lugarId || subiendo || !apiUrl}
+                disabled={!lugarId || subiendo}
                 className="rounded-full bg-legnar-red px-5 py-2 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-legnar-fire disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {subiendo ? 'Subiendo...' : `Subir ${pendientes} foto${pendientes > 1 ? 's' : ''}`}
