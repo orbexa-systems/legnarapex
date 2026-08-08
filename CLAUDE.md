@@ -392,6 +392,9 @@ export function generarLinkWhatsapp(codigo: string): string {
 
 ## Convenciones de commits
 
+- Claude **nunca** se agrega como co-autor (`Co-Authored-By`) ni incluye ninguna firma propia en los commits.
+- El mensaje termina después del texto — sin footers adicionales.
+
 Formato imperativo corto en **inglés**:
 
 ```

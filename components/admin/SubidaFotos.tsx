@@ -90,7 +90,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
     if (!lugarId) return
     setSubiendo(true)
 
-    // Subir secuencialmente
+    // Upload files sequentially to avoid overwhelming the server
     for (let i = 0; i < archivos.length; i++) {
       if (archivos[i].estado !== 'pendiente') continue
       setArchivos((prev) =>
@@ -99,12 +99,12 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
       try {
         await subirConXHR(archivos[i], i)
       } catch {
-        // El estado de error ya se set en subirConXHR
+        // Error state is already set inside subirConXHR
       }
     }
 
     setSubiendo(false)
-    router.refresh() // Re-fetcha los datos del Server Component
+    router.refresh() // Re-fetches Server Component data
   }
 
   const pendientes = archivos.filter((a) => a.estado === 'pendiente').length
@@ -117,7 +117,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
         Subir fotos
       </h2>
 
-      {/* Advertencia si backend no está configurado (variable pública de señal) */}
+      {/* NEXT_PUBLIC_API_URL doubles as a UI signal to warn when the backend is not wired up */}
       {!process.env.NEXT_PUBLIC_API_URL && (
         <div className="mb-4 flex items-center gap-2 rounded-lg border border-yellow-900/40 bg-yellow-950/20 px-3 py-2.5 text-xs text-yellow-400">
           <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,7 +127,6 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
         </div>
       )}
 
-      {/* Selector de lugar */}
       <div className="mb-4 flex flex-col gap-1.5">
         <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
           Lugar de la sesión *
@@ -146,7 +145,6 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
         </select>
       </div>
 
-      {/* Zona drag & drop */}
       <div
         onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
         onDragLeave={() => setIsDragging(false)}
@@ -175,7 +173,6 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
         <p className="mt-1 text-xs text-legnar-gray/50">Solo archivos .jpg</p>
       </div>
 
-      {/* Lista de archivos */}
       {archivos.length > 0 && (
         <div className="mt-4 flex flex-col gap-2">
           {archivos.map((a, i) => (
@@ -183,7 +180,6 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
               key={i}
               className="flex items-center gap-3 rounded-lg border border-legnar-border bg-legnar-black px-3 py-2"
             >
-              {/* Ícono de estado */}
               <span className="shrink-0">
                 {a.estado === 'ok' && (
                   <svg className="h-4 w-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,12 +198,10 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
                 )}
               </span>
 
-              {/* Nombre */}
               <span className="flex-1 truncate font-mono text-xs text-legnar-white">
                 {a.file.name}
               </span>
 
-              {/* Barra de progreso */}
               {a.estado === 'subiendo' && (
                 <div className="h-1 w-20 overflow-hidden rounded-full bg-legnar-border">
                   <div
@@ -217,12 +211,10 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
                 </div>
               )}
 
-              {/* Error */}
               {a.estado === 'error' && (
                 <span className="text-xs text-red-400">{a.error}</span>
               )}
 
-              {/* Remover (solo si pendiente) */}
               {a.estado === 'pendiente' && (
                 <button
                   onClick={() => removerArchivo(i)}
@@ -236,7 +228,6 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
             </div>
           ))}
 
-          {/* Resumen + botón subir */}
           <div className="mt-2 flex items-center justify-between">
             <p className="text-xs text-legnar-gray">
               {completados > 0 && <span className="text-green-400">{completados} ok </span>}

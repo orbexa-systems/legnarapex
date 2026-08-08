@@ -29,14 +29,14 @@ export async function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl
 
-  // Redirigir a login si accede a /admin (excepto /admin/login) sin sesión
+  // Redirect to login when accessing /admin (except /admin/login) without a session
   if (pathname.startsWith('/admin') && pathname !== '/admin/login' && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin/login'
     return NextResponse.redirect(url)
   }
 
-  // Si ya está autenticado y va al login, redirigir al panel
+  // If already authenticated and navigating to login, redirect to the panel
   if (pathname === '/admin/login' && user) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin/fotos'

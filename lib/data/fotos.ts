@@ -49,7 +49,7 @@ export async function getFotosByCodigo(codigo: string): Promise<Foto[]> {
   return data ?? []
 }
 
-// Usa adminSupabase para ver TODAS las fotos incluyendo expiradas
+// Uses adminSupabase to bypass RLS and return all photos including expired ones
 export async function getFotosAdmin(): Promise<FotoConLugar[]> {
   const { data, error } = await adminSupabase
     .from('fotos')

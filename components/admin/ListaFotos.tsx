@@ -40,7 +40,6 @@ export default function ListaFotos({ fotos }: { fotos: FotoConLugar[] }) {
         </h2>
       </div>
 
-      {/* Tabla */}
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
