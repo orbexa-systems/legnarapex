@@ -139,7 +139,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
           <option value="">Selecciona un lugar</option>
           {lugares.map((l) => (
             <option key={l.id} value={l.id}>
-              {l.nombre}
+              {l.name}
             </option>
           ))}
         </select>

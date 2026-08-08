@@ -10,14 +10,14 @@ async function requireAuth() {
   return user
 }
 
-export async function toggleLugar(id: string, activo: boolean): Promise<void> {
+export async function toggleLugar(id: string, active: boolean): Promise<void> {
   await requireAuth()
-  const { error } = await adminSupabase.from('lugares').update({ activo }).eq('id', id)
+  const { error } = await adminSupabase.from('locations').update({ active }).eq('id', id)
   if (error) throw new Error(error.message)
 }
 
 export async function agregarLugar(nombre: string): Promise<void> {
   await requireAuth()
-  const { error } = await adminSupabase.from('lugares').insert({ nombre: nombre.trim() })
+  const { error } = await adminSupabase.from('locations').insert({ name: nombre.trim() })
   if (error) throw new Error(error.message)
 }

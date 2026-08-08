@@ -26,9 +26,9 @@ export default async function GaleriaPage({
   const [lugares, fotos] = await Promise.all([
     getLugares(),
     getFotosByCriteria({
-      lugar_id: params.lugar,
-      fecha: params.fecha,
-      codigo: params.codigo,
+      location_id: params.lugar,
+      date: params.fecha,
+      code: params.codigo,
     }),
   ])
 

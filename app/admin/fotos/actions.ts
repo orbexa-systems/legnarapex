@@ -23,7 +23,7 @@ export async function eliminarFoto(id: string): Promise<void> {
     }
   } else {
     // Fallback: deletes from DB only — R2 object will be orphaned until backend is configured
-    const { error } = await adminSupabase.from('fotos').delete().eq('id', id)
+    const { error } = await adminSupabase.from('photos').delete().eq('id', id)
     if (error) throw new Error(error.message)
   }
 }

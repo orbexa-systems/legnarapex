@@ -6,9 +6,9 @@ export const metadata = { title: 'Lugares — Admin Legnar Apex' }
 
 async function getTodosLosLugares(): Promise<Lugar[]> {
   const { data, error } = await adminSupabase
-    .from('lugares')
+    .from('locations')
     .select('*')
-    .order('nombre')
+    .order('name')
   if (error) throw error
   return data ?? []
 }
