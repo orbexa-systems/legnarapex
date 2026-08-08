@@ -29,9 +29,10 @@ Este briefing debe ser conciso — máximo 20 líneas. El objetivo es que el usu
 
 ## Idioma y estilo de comunicación
 
-- Todos los prompts, comentarios de commits y explicaciones en **español**.
+- Los prompts y explicaciones entre Claude y el desarrollador en **español**.
 - El código (variables, funciones, clases, interfaces, tipos) en **inglés**, siguiendo convención estándar de la industria.
 - Los comentarios dentro del código siempre en **inglés**, sin excepción.
+- Los mensajes de commit siempre en **inglés**, sin excepción.
 
 ---
 
@@ -391,21 +392,21 @@ export function generarLinkWhatsapp(codigo: string): string {
 
 ## Convenciones de commits
 
-Formato imperativo corto en español:
+Formato imperativo corto en **inglés**:
 
 ```
-Agrega estructura base del proyecto Legnarapex
-Implementa subida de fotos en lote con Thumbnailator
-Conecta galería pública a Supabase
-Agrega protección contra descarga en FotoCard
-Configura cron job de limpieza en Spring Boot
-Corrige extracción de fecha EXIF en fotos sin metadatos
+Add base project structure for Legnarapex
+Implement batch photo upload with Thumbnailator
+Connect public gallery to Supabase
+Add download protection to FotoCard
+Configure nightly cleanup cron job in Spring Boot
+Fix EXIF date extraction for photos without metadata
 ```
 
 Prefijos opcionales:
-- `[backend]` — cambio exclusivo en Spring Boot
-- `[fix]` — corrección de bug
-- `[chore]` — mantenimiento sin impacto en funcionalidad
+- `[backend]` — change exclusive to Spring Boot
+- `[fix]` — bug fix
+- `[chore]` — maintenance with no functional impact
 
 ---
 
