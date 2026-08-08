@@ -49,12 +49,21 @@ Este briefing debe ser conciso — máximo 20 líneas. El objetivo es que el usu
 ## Control de versiones (obligatorio)
 
 - **NUNCA** hacer commit ni push directamente a `main` o `develop`.
+- Todas las ramas nuevas se crean **a partir de `develop`**, salvo que se indique explícitamente otra base.
 - Antes de cualquier cambio de código, crear un branch nuevo:
   - `feature/nombre-de-la-funcionalidad`
   - `fix/descripcion-del-bug`
   - `chore/tarea-de-mantenimiento`
-- Los cambios llegan a `main` **únicamente vía PR**, nunca con push directo.
+- Los cambios llegan a `develop` vía PR. `develop` llega a `main` vía PR cuando hay una versión lista.
 - **Repositorio:** `github.com/orbexasystems/legnarapex`
+
+### Estructura de ramas
+
+```
+main        ← producción — solo recibe merges desde develop
+develop     ← integración — base de todas las ramas de trabajo
+  └─ feature/*, fix/*, chore/*   ← trabajo diario
+```
 
 ### Flujo obligatorio antes de mergear
 
@@ -88,6 +97,27 @@ Decisiones que SÍ documentar en este proyecto:
 - Cambios en el procesamiento de imágenes (marca de agua, conversión)
 - Decisiones sobre almacenamiento (Cloudflare R2, estructura de carpetas)
 - Cambios en el flujo de búsqueda de fotos
+
+---
+
+## Tests obligatorios
+
+**Todo código nuevo debe incluir su test.** Un cambio sin test no se considera terminado.
+
+### Frontend (Next.js)
+- **Lógica de negocio** (cálculos, transformaciones, helpers): test unitario con Jest/Vitest en `__tests__/`
+- **Server Actions**: test que verifique el happy path y al menos un caso de error
+- **Componentes nuevos**: test de renderizado básico con React Testing Library
+- **API routes**: test de integración que cubra respuesta exitosa y casos de error (401, 502, etc.)
+
+### Backend (Spring Boot)
+- **Servicios** (`FotoService`, `WatermarkService`, etc.): test unitario con JUnit 5 + Mockito
+- **Controladores REST**: test con `@WebMvcTest` cubriendo status codes y estructura del response
+- **Cron jobs**: test unitario de la lógica de selección (qué fotos se eliminan)
+- **Lógica de extracción EXIF**: test unitario con archivos de prueba en `src/test/resources/`
+
+### Regla de excepción
+Si un cambio es **exclusivamente de UI/estilos** (colores, espaciados, fuentes) y no modifica lógica, puede omitir test — documentarlo en el PR.
 
 ---
 
