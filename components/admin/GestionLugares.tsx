@@ -77,23 +77,23 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
         {lugares.map((lugar) => (
           <li key={lugar.id} className="flex items-center justify-between px-6 py-4">
             <div>
-              <p className="text-sm font-semibold text-legnar-white">{lugar.nombre}</p>
+              <p className="text-sm font-semibold text-legnar-white">{lugar.name}</p>
               <p className="text-xs text-legnar-gray">
-                {lugar.activo ? 'Visible en galería' : 'Oculto en galería'}
+                {lugar.active ? 'Visible en galería' : 'Oculto en galería'}
               </p>
             </div>
 
             <button
-              onClick={() => handleToggle(lugar.id, lugar.activo)}
+              onClick={() => handleToggle(lugar.id, lugar.active)}
               disabled={pending}
               className={`relative h-6 w-11 rounded-full transition-colors disabled:opacity-40 ${
-                lugar.activo ? 'bg-legnar-red' : 'bg-legnar-border'
+                lugar.active ? 'bg-legnar-red' : 'bg-legnar-border'
               }`}
-              aria-label={lugar.activo ? 'Desactivar' : 'Activar'}
+              aria-label={lugar.active ? 'Desactivar' : 'Activar'}
             >
               <span
                 className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                  lugar.activo ? 'translate-x-5' : 'translate-x-0.5'
+                  lugar.active ? 'translate-x-5' : 'translate-x-0.5'
                 }`}
               />
             </button>

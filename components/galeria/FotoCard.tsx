@@ -20,8 +20,8 @@ export default function FotoCard({ foto, onOpen }: FotoCardProps) {
         {/* watermarked image — drag and context menu disabled */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={foto.url_foto}
-          alt={`Foto ${foto.codigo}`}
+          src={foto.photo_url}
+          alt={`Foto ${foto.code}`}
           draggable={false}
           className="photo-protected h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -29,7 +29,7 @@ export default function FotoCard({ foto, onOpen }: FotoCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-legnar-dark/70 via-transparent to-transparent" />
 
         <span className="absolute right-2 top-2 rounded-md bg-black/60 px-2 py-0.5 font-mono text-[10px] text-legnar-gray backdrop-blur-sm">
-          {foto.hora_foto.slice(0, 5)}
+          {foto.photo_time.slice(0, 5)}
         </span>
 
         <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -43,10 +43,10 @@ export default function FotoCard({ foto, onOpen }: FotoCardProps) {
 
       <div className="flex items-center justify-between px-3 py-2.5">
         <span className="font-mono text-xs font-semibold tracking-wider text-legnar-gold">
-          {foto.codigo}
+          {foto.code}
         </span>
         <span className="text-[10px] text-legnar-gray">
-          {new Date(foto.fecha_foto).toLocaleDateString('es-MX', {
+          {new Date(foto.photo_date).toLocaleDateString('es-MX', {
             day: '2-digit',
             month: 'short',
           })}

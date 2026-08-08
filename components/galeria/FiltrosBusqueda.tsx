@@ -57,7 +57,7 @@ export default function FiltrosBusqueda({ lugares }: { lugares: Lugar[] }) {
               <option value="">Todos los lugares</option>
               {lugares.map((l) => (
                 <option key={l.id} value={l.id}>
-                  {l.nombre}
+                  {l.name}
                 </option>
               ))}
             </select>

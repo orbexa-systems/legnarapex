@@ -27,7 +27,7 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
   }, [])
 
   const mensaje = encodeURIComponent(
-    `Hola, vi mi foto con el código ${foto.codigo} en Legnarapex, me interesa comprarla 🏍️`,
+    `Hola, vi mi foto con el código ${foto.code} en Legnarapex, me interesa comprarla 🏍️`,
   )
   const waUrl = `https://wa.me/${WA_NUMBER}?text=${mensaje}`
 
@@ -58,8 +58,8 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={foto.url_foto}
-            alt={`Foto ${foto.codigo}`}
+            src={foto.photo_url}
+            alt={`Foto ${foto.code}`}
             draggable={false}
             className="photo-protected h-full w-full object-contain"
           />
@@ -69,16 +69,16 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
           <div className="text-center sm:text-left">
             <p className="text-[10px] uppercase tracking-widest text-legnar-gray">Código de foto</p>
             <p className="font-mono text-2xl font-bold tracking-widest text-legnar-gold">
-              {foto.codigo}
+              {foto.code}
             </p>
             <p className="mt-0.5 text-xs text-legnar-gray">
-              {new Date(foto.fecha_foto).toLocaleDateString('es-MX', {
+              {new Date(foto.photo_date).toLocaleDateString('es-MX', {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
               })}{' '}
-              · {foto.hora_foto.slice(0, 5)} h
+              · {foto.photo_time.slice(0, 5)} h
             </p>
           </div>
 
