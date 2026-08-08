@@ -6,6 +6,27 @@ Este archivo va en la raíz del proyecto Legnarapex. Claude Code lo lee automát
 
 ---
 
+## Protocolo de inicio de sesión
+
+Cuando el usuario diga **"inicio de sesion"** (o variante como "iniciamos", "nueva sesion"), ejecutar automáticamente estos pasos antes de responder cualquier otra cosa:
+
+1. Leer `STATUS.md` en la raíz del proyecto (`../STATUS.md` relativo a este archivo)
+2. Correr en `legnarapex-frontend/`:
+   ```bash
+   git log --oneline -8
+   git branch -a
+   git status
+   ```
+3. Dar un briefing estructurado con:
+   - **Rama actual** y si tiene cambios sin commitear
+   - **Últimos commits** (qué se hizo la sesión anterior)
+   - **Estado del proyecto** según `STATUS.md`
+   - **Sugerencia de qué trabajar** en esta sesión según los pendientes
+
+Este briefing debe ser conciso — máximo 20 líneas. El objetivo es que el usuario pueda arrancar a trabajar en menos de un minuto.
+
+---
+
 ## Idioma y estilo de comunicación
 
 - Todos los prompts, comentarios de commits y explicaciones en **español**.
@@ -27,13 +48,26 @@ Este archivo va en la raíz del proyecto Legnarapex. Claude Code lo lee automát
 
 ## Control de versiones (obligatorio)
 
-- Nunca subir cambios directamente a `main` o `develop`.
-- Para cualquier cambio, por pequeño que sea, crear un branch nuevo primero:
+- **NUNCA** hacer commit ni push directamente a `main` o `develop`.
+- Antes de cualquier cambio de código, crear un branch nuevo:
   - `feature/nombre-de-la-funcionalidad`
   - `fix/descripcion-del-bug`
   - `chore/tarea-de-mantenimiento`
-- Los cambios llegan a `main` únicamente vía merge/PR, nunca con push directo.
+- Los cambios llegan a `main` **únicamente vía PR**, nunca con push directo.
 - **Repositorio:** `github.com/orbexasystems/legnarapex`
+
+### Flujo obligatorio antes de mergear
+
+Un branch NO puede mergearse a `main` sin cumplir estos pasos en orden:
+
+1. `npm run build` — sin errores de compilación
+2. Prueba manual del cambio en el navegador (describir brevemente qué se probó)
+3. Verificar que el flujo afectado sigue funcionando end-to-end
+4. Si el cambio toca el admin: probar login → acción → resultado
+5. Si el cambio toca la galería pública: probar búsqueda → lightbox → CTA WhatsApp
+6. Documentar en el PR qué se probó y en qué browser
+
+Si alguno de estos pasos falla o no se puede verificar, **no mergear** — abrir issue o continuar en el branch.
 
 ---
 
