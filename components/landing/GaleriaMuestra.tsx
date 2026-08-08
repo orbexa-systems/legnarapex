@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-/* Placeholders hasta que el cliente provea fotos reales.
-   Simulan el aspecto de una foto con marca de agua. */
+/* Placeholder cards shown until real photos are available.
+   They mimic the look of a watermarked photo. */
 const PLACEHOLDERS = [
   { id: 1, gradient: 'from-slate-900 via-slate-800 to-legnar-red/20',  codigo: '2V0A1234' },
   { id: 2, gradient: 'from-slate-900 via-legnar-dark to-legnar-fire/20', codigo: '2V0A5678' },
@@ -15,7 +15,6 @@ export default function GaleriaMuestra() {
   return (
     <section className="py-24 px-6">
       <div className="mx-auto max-w-6xl">
-        {/* Header */}
         <div className="mb-16 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
@@ -36,17 +35,14 @@ export default function GaleriaMuestra() {
           </Link>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-4">
           {PLACEHOLDERS.map((p) => (
             <div
               key={p.id}
               className="group relative aspect-[3/2] overflow-hidden rounded-xl border border-legnar-border"
             >
-              {/* Fondo placeholder */}
               <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient}`} />
 
-              {/* Marca de agua simulada */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <span
                   className="select-none text-[clamp(1.2rem,3vw,2rem)] font-bold uppercase tracking-widest text-white/10"
@@ -56,12 +52,10 @@ export default function GaleriaMuestra() {
                 </span>
               </div>
 
-              {/* Silueta moto (SVG decorativo) */}
               <div className="absolute inset-0 flex items-center justify-center opacity-5">
                 <MotoIcon />
               </div>
 
-              {/* Overlay con código */}
               <div className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/90 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
                 <p className="text-xs font-mono text-legnar-gold tracking-widest">{p.codigo}</p>
               </div>

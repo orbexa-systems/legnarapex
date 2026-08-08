@@ -16,7 +16,6 @@ export default function GridFotos({ fotos }: { fotos: Foto[] }) {
 
   return (
     <>
-      {/* Contador de resultados */}
       <div className="mx-auto max-w-6xl px-6 pb-2 pt-6">
         <p className="text-xs text-legnar-gray">
           <span className="font-semibold text-legnar-white">{fotos.length}</span>{' '}
@@ -24,7 +23,6 @@ export default function GridFotos({ fotos }: { fotos: Foto[] }) {
         </p>
       </div>
 
-      {/* Grid */}
       <div className="mx-auto max-w-6xl px-6 pb-16 pt-2">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
           {fotos.map((foto) => (
@@ -33,7 +31,6 @@ export default function GridFotos({ fotos }: { fotos: Foto[] }) {
         </div>
       </div>
 
-      {/* Lightbox */}
       {fotoActiva && (
         <Lightbox foto={fotoActiva} onClose={() => setFotoActiva(null)} />
       )}
@@ -44,7 +41,6 @@ export default function GridFotos({ fotos }: { fotos: Foto[] }) {
 function EstadoVacio() {
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-6 px-6 py-24 text-center">
-      {/* Ícono */}
       <div className="flex h-20 w-20 items-center justify-center rounded-full border border-legnar-border bg-legnar-dark">
         <svg className="h-8 w-8 text-legnar-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />

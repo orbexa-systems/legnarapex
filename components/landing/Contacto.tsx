@@ -25,14 +25,12 @@ const REDES = [
 export default function Contacto() {
   return (
     <section className="py-24 px-6">
-      {/* Línea separadora */}
       <div
         className="mx-auto mb-24 max-w-5xl h-px"
         style={{ background: 'linear-gradient(90deg, transparent, #1F1F1F, transparent)' }}
       />
 
       <div className="mx-auto max-w-3xl text-center">
-        {/* Header */}
         <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
           Contacto
         </span>
@@ -46,7 +44,6 @@ export default function Contacto() {
           Mándanos el código por WhatsApp. Editamos el RAW original y te lo enviamos directo.
         </p>
 
-        {/* Botón WhatsApp */}
         <a
           href={WA_URL}
           target="_blank"
@@ -59,7 +56,6 @@ export default function Contacto() {
           Escríbenos por WhatsApp
         </a>
 
-        {/* Redes sociales */}
         <div className="mt-16 flex flex-col items-center gap-6">
           <p className="text-xs uppercase tracking-widest text-legnar-gray/60">Síguenos en redes</p>
           <div className="flex gap-4">
@@ -80,7 +76,6 @@ export default function Contacto() {
         </div>
       </div>
 
-      {/* Footer mínimo */}
       <div className="mx-auto mt-20 max-w-5xl border-t border-legnar-border pt-8 text-center">
         <p className="text-xs text-legnar-gray/40">
           © {new Date().getFullYear()} Legnar Apex · Fotografía de motociclismo

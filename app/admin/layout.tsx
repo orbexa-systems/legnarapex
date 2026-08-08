@@ -11,8 +11,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Sin sesión → solo renderiza el children (página de login)
-  // El middleware ya maneja el redirect; esto es defensa en profundidad
+  // No session → render children only (login page)
+  // Middleware already handles the redirect; this is defense in depth
   if (!user) {
     return (
       <div className="min-h-screen bg-legnar-black">

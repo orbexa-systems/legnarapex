@@ -16,13 +16,13 @@ export async function eliminarFoto(id: string): Promise<void> {
   const apiUrl = process.env.API_URL
 
   if (apiUrl) {
-    // Spring Boot elimina de R2 + DB
+    // Spring Boot deletes from both R2 and DB
     const res = await fetch(`${apiUrl}/fotos/${id}`, { method: 'DELETE' })
     if (!res.ok && res.status !== 404) {
       throw new Error(`Error del backend al eliminar: ${res.status}`)
     }
   } else {
-    // Fallback: solo elimina de DB (R2 quedará huérfano hasta configurar el backend)
+    // Fallback: deletes from DB only — R2 object will be orphaned until backend is configured
     const { error } = await adminSupabase.from('fotos').delete().eq('id', id)
     if (error) throw new Error(error.message)
   }

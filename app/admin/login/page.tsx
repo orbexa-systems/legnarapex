@@ -35,7 +35,6 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      {/* Fondo con glow sutil */}
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0"
@@ -46,7 +45,6 @@ export default function AdminLoginPage() {
       />
 
       <div className="relative w-full max-w-sm">
-        {/* Logo */}
         <div className="mb-8 text-center">
           <h1
             className="text-5xl uppercase tracking-widest text-legnar-white"
@@ -59,7 +57,6 @@ export default function AdminLoginPage() {
           </p>
         </div>
 
-        {/* Card */}
         <div className="rounded-2xl border border-legnar-border bg-legnar-dark p-8">
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div className="flex flex-col gap-1.5">

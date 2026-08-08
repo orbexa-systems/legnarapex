@@ -35,7 +35,6 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
 
   return (
     <div className="rounded-2xl border border-legnar-border bg-legnar-dark">
-      {/* Header */}
       <div className="flex items-center justify-between border-b border-legnar-border px-6 py-4">
         <h2 className="text-base font-bold uppercase tracking-widest text-legnar-white">
           Lugares de operación
@@ -48,7 +47,6 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
         </button>
       </div>
 
-      {/* Formulario nuevo lugar */}
       {agregando && (
         <form onSubmit={handleAgregar} className="flex gap-3 border-b border-legnar-border px-6 py-4">
           <input
@@ -70,7 +68,6 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
         </form>
       )}
 
-      {/* Lista */}
       <ul className="divide-y divide-legnar-border/50">
         {lugares.length === 0 && (
           <li className="px-6 py-8 text-center text-sm text-legnar-gray">
@@ -86,7 +83,6 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
               </p>
             </div>
 
-            {/* Toggle */}
             <button
               onClick={() => handleToggle(lugar.id, lugar.activo)}
               disabled={pending}

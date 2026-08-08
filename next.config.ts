@@ -4,12 +4,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        // Cloudflare R2 public bucket URL — actualizar hostname cuando R2 esté configurado
+        // Cloudflare R2 public bucket URL — update hostname once R2 is configured
         protocol: 'https',
         hostname: '**.r2.dev',
       },
       {
-        // Dominio personalizado de R2 (si se usa CDN propio)
+        // Custom R2 domain (if using a custom CDN)
         protocol: 'https',
         hostname: process.env.R2_PUBLIC_HOSTNAME ?? 'placeholder.r2.dev',
       },
