@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 
-// Proxy server-side que oculta la URL interna del backend al navegador.
-// Verifica sesión Supabase antes de reenviar a Spring Boot.
+// Server-side proxy that hides the internal backend URL from the browser.
+// Verifies Supabase session before forwarding to Spring Boot.
 export async function POST(request: NextRequest) {
   const supabase = await createSupabaseServerClient()
   const {

@@ -11,7 +11,7 @@ interface LightboxProps {
 }
 
 export default function Lightbox({ foto, onClose }: LightboxProps) {
-  // Cerrar con ESC
+  // Close on Escape key
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose()
@@ -20,14 +20,14 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
-  // Bloquear scroll del body
+  // Lock body scroll while open
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
 
   const mensaje = encodeURIComponent(
-    `Hola, vi mi foto con el código ${foto.codigo} en Legnarapex, me interesa comprarla 🏍️`,
+    `Hola, vi mi foto con el código ${foto.code} en Legnarapex, me interesa comprarla 🏍️`,
   )
   const waUrl = `https://wa.me/${WA_NUMBER}?text=${mensaje}`
 
@@ -36,15 +36,12 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
-      {/* Fondo oscuro */}
       <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
 
-      {/* Panel */}
       <div
         className="relative z-10 flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-legnar-border bg-legnar-dark shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Botón cerrar */}
         <button
           onClick={onClose}
           aria-label="Cerrar"
@@ -55,40 +52,36 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
           </svg>
         </button>
 
-        {/* Imagen protegida */}
         <div
           className="relative aspect-[3/2] w-full bg-legnar-black"
           onContextMenu={(e) => e.preventDefault()}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={foto.url_foto}
-            alt={`Foto ${foto.codigo}`}
+            src={foto.photo_url}
+            alt={`Foto ${foto.code}`}
             draggable={false}
             className="photo-protected h-full w-full object-contain"
           />
         </div>
 
-        {/* Footer del lightbox */}
         <div className="flex flex-col items-center gap-4 border-t border-legnar-border px-6 py-5 sm:flex-row sm:justify-between">
-          {/* Código + meta */}
           <div className="text-center sm:text-left">
             <p className="text-[10px] uppercase tracking-widest text-legnar-gray">Código de foto</p>
             <p className="font-mono text-2xl font-bold tracking-widest text-legnar-gold">
-              {foto.codigo}
+              {foto.code}
             </p>
             <p className="mt-0.5 text-xs text-legnar-gray">
-              {new Date(foto.fecha_foto).toLocaleDateString('es-MX', {
+              {new Date(foto.photo_date).toLocaleDateString('es-MX', {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
               })}{' '}
-              · {foto.hora_foto.slice(0, 5)} h
+              · {foto.photo_time.slice(0, 5)} h
             </p>
           </div>
 
-          {/* CTA WhatsApp */}
           <a
             href={waUrl}
             target="_blank"

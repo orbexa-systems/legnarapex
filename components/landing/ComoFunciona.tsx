@@ -26,7 +26,6 @@ export default function ComoFunciona() {
   return (
     <section className="py-24 px-6">
       <div className="mx-auto max-w-5xl">
-        {/* Header */}
         <div className="mb-16 text-center">
           <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
             Proceso
@@ -39,14 +38,12 @@ export default function ComoFunciona() {
           </h2>
         </div>
 
-        {/* Pasos */}
         <div className="grid gap-6 sm:grid-cols-3">
           {PASOS.map((paso) => (
             <div
               key={paso.numero}
               className="group relative flex flex-col gap-5 rounded-2xl border border-legnar-border bg-legnar-dark p-8 transition-all duration-300 hover:border-legnar-red/40 hover:shadow-[0_0_32px_#C0392B18]"
             >
-              {/* Número de fondo */}
               <span
                 className="absolute right-6 top-4 text-6xl font-bold leading-none text-legnar-border select-none transition-colors duration-300 group-hover:text-legnar-red/20"
                 style={{ fontFamily: 'var(--font-display)' }}
@@ -54,16 +51,13 @@ export default function ComoFunciona() {
                 {paso.numero}
               </span>
 
-              {/* Emoji */}
               <span className="text-4xl">{paso.emoji}</span>
 
-              {/* Texto */}
               <div className="flex flex-col gap-2">
                 <h3 className="text-lg font-bold text-legnar-white">{paso.titulo}</h3>
                 <p className="text-sm leading-relaxed text-legnar-gray">{paso.descripcion}</p>
               </div>
 
-              {/* Línea de acento inferior */}
               <div className="absolute bottom-0 left-8 right-8 h-px scale-x-0 bg-gradient-to-r from-legnar-red to-legnar-fire transition-transform duration-300 group-hover:scale-x-100 rounded-full" />
             </div>
           ))}

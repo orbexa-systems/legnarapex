@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-// Fallbacks vacíos evitan que createClient lance en build time sin env vars.
-// En runtime, las solicitudes fallarán explícitamente si las vars no están configuradas.
+// Empty fallbacks prevent createClient from throwing at build time without env vars.
+// At runtime, requests will fail explicitly if the vars are not configured.
 export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL    ?? 'https://placeholder.supabase.co',
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'placeholder-anon-key',

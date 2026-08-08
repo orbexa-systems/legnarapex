@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-// Service role — bypasea RLS. Solo usar server-side.
-// Fallback vacío evita error en build time; falla explícitamente en runtime si falta.
+// Service role client — bypasses RLS. Server-side only.
+// Empty fallbacks prevent build-time errors; requests fail explicitly at runtime if vars are missing.
 export const adminSupabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL    ?? 'https://placeholder.supabase.co',
   process.env.SUPABASE_SERVICE_ROLE_KEY   ?? 'placeholder-service-role',

@@ -12,7 +12,7 @@ export default function FiltrosBusqueda({ lugares }: { lugares: Lugar[] }) {
   const lugar = searchParams.get('lugar') ?? ''
   const fecha = searchParams.get('fecha') ?? ''
 
-  // Estado local para código — solo navega al enviar el formulario
+  // Local state for the code field — only navigates on form submit
   const [codigoInput, setCodigoInput] = useState(searchParams.get('codigo') ?? '')
 
   const setParam = useCallback(
@@ -45,7 +45,6 @@ export default function FiltrosBusqueda({ lugares }: { lugares: Lugar[] }) {
       <div className="mx-auto max-w-6xl px-6 py-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-4">
 
-          {/* Lugar */}
           <div className="flex flex-col gap-1.5 sm:w-48">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
               Lugar
@@ -58,13 +57,12 @@ export default function FiltrosBusqueda({ lugares }: { lugares: Lugar[] }) {
               <option value="">Todos los lugares</option>
               {lugares.map((l) => (
                 <option key={l.id} value={l.id}>
-                  {l.nombre}
+                  {l.name}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Fecha */}
           <div className="flex flex-col gap-1.5 sm:w-44">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
               Fecha
@@ -77,7 +75,6 @@ export default function FiltrosBusqueda({ lugares }: { lugares: Lugar[] }) {
             />
           </div>
 
-          {/* Código */}
           <form onSubmit={handleCodigoSubmit} className="flex flex-col gap-1.5 flex-1">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
               Código de foto
@@ -99,7 +96,6 @@ export default function FiltrosBusqueda({ lugares }: { lugares: Lugar[] }) {
             </div>
           </form>
 
-          {/* Limpiar filtros */}
           {hayFiltros && (
             <button
               onClick={limpiarFiltros}

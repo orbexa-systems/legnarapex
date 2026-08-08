@@ -3,64 +3,64 @@ import { adminSupabase } from '@/lib/supabase-admin'
 
 export type Foto = {
   id: string
-  codigo: string
-  lugar_id: string
-  fecha_foto: string
-  hora_foto: string
-  url_foto: string
-  fecha_subida: string
-  expira_en: string
+  code: string
+  location_id: string
+  photo_date: string
+  photo_time: string
+  photo_url: string
+  uploaded_at: string
+  expires_at: string
 }
 
 export type FotoConLugar = Foto & {
-  lugares: { nombre: string } | null
+  locations: { name: string } | null
 }
 
 export type FotosByCriteriaParams = {
-  lugar_id?: string
-  fecha?: string
-  codigo?: string
+  location_id?: string
+  date?: string
+  code?: string
 }
 
 export async function getFotosByCriteria(params: FotosByCriteriaParams): Promise<Foto[]> {
   let query = supabase
-    .from('fotos')
+    .from('photos')
     .select('*')
-    .gt('expira_en', new Date().toISOString())
-    .order('hora_foto', { ascending: false })
+    .gt('expires_at', new Date().toISOString())
+    .order('photo_time', { ascending: false })
 
-  if (params.lugar_id) query = query.eq('lugar_id', params.lugar_id)
-  if (params.fecha)    query = query.eq('fecha_foto', params.fecha)
-  if (params.codigo)   query = query.ilike('codigo', `%${params.codigo}%`)
+  if (params.location_id) query = query.eq('location_id', params.location_id)
+  if (params.date)        query = query.eq('photo_date', params.date)
+  if (params.code)        query = query.ilike('code', `%${params.code}%`)
 
   const { data, error } = await query
   if (error) throw error
   return data ?? []
 }
 
-export async function getFotosByCodigo(codigo: string): Promise<Foto[]> {
+export async function getFotosByCodigo(code: string): Promise<Foto[]> {
   const { data, error } = await supabase
-    .from('fotos')
+    .from('photos')
     .select('*')
-    .ilike('codigo', `%${codigo}%`)
-    .gt('expira_en', new Date().toISOString())
+    .ilike('code', `%${code}%`)
+    .gt('expires_at', new Date().toISOString())
 
   if (error) throw error
   return data ?? []
 }
 
-// Usa adminSupabase para ver TODAS las fotos incluyendo expiradas
+// Uses adminSupabase to bypass RLS and return all photos including expired ones
 export async function getFotosAdmin(): Promise<FotoConLugar[]> {
   const { data, error } = await adminSupabase
-    .from('fotos')
-    .select('*, lugares(nombre)')
-    .order('fecha_subida', { ascending: false })
+    .from('photos')
+    .select('*, locations(name)')
+    .order('uploaded_at', { ascending: false })
 
   if (error) throw error
   return (data ?? []) as FotoConLugar[]
 }
 
 export async function deleteFoto(id: string): Promise<void> {
-  const { error } = await supabase.from('fotos').delete().eq('id', id)
+  const { error } = await supabase.from('photos').delete().eq('id', id)
   if (error) throw error
 }

@@ -26,15 +26,14 @@ export default async function GaleriaPage({
   const [lugares, fotos] = await Promise.all([
     getLugares(),
     getFotosByCriteria({
-      lugar_id: params.lugar,
-      fecha: params.fecha,
-      codigo: params.codigo,
+      location_id: params.lugar,
+      date: params.fecha,
+      code: params.codigo,
     }),
   ])
 
   return (
     <div className="min-h-screen">
-      {/* Barra de navegación mínima */}
       <nav className="border-b border-legnar-border bg-legnar-black px-6 py-4">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link
@@ -68,7 +67,6 @@ export default async function GaleriaPage({
         </div>
       </nav>
 
-      {/* Header de la galería */}
       <div className="border-b border-legnar-border/50 px-6 py-8">
         <div className="mx-auto max-w-6xl">
           <h1
@@ -83,12 +81,11 @@ export default async function GaleriaPage({
         </div>
       </div>
 
-      {/* Filtros — Suspense requerido por useSearchParams */}
+      {/* Suspense required because FiltrosBusqueda uses useSearchParams */}
       <Suspense fallback={<FiltrosSkeleton />}>
         <FiltrosBusqueda lugares={lugares} />
       </Suspense>
 
-      {/* Grid de fotos */}
       <GridFotos fotos={fotos} />
     </div>
   )

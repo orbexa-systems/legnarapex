@@ -2,17 +2,17 @@ import { supabase } from '@/lib/supabase'
 
 export type Lugar = {
   id: string
-  nombre: string
-  activo: boolean
+  name: string
+  active: boolean
   created_at: string
 }
 
 export async function getLugares(): Promise<Lugar[]> {
   const { data, error } = await supabase
-    .from('lugares')
+    .from('locations')
     .select('*')
-    .eq('activo', true)
-    .order('nombre')
+    .eq('active', true)
+    .order('name')
 
   if (error) throw error
   return data ?? []
@@ -20,7 +20,7 @@ export async function getLugares(): Promise<Lugar[]> {
 
 export async function getLugarById(id: string): Promise<Lugar | null> {
   const { data, error } = await supabase
-    .from('lugares')
+    .from('locations')
     .select('*')
     .eq('id', id)
     .single()

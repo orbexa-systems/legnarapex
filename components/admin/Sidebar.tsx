@@ -48,7 +48,6 @@ export default function Sidebar({ userEmail }: SidebarProps) {
 
   return (
     <aside className="flex w-56 shrink-0 flex-col border-r border-legnar-border bg-legnar-dark">
-      {/* Marca */}
       <div className="border-b border-legnar-border px-5 py-5">
         <Link href="/" className="block">
           <p
@@ -61,7 +60,6 @@ export default function Sidebar({ userEmail }: SidebarProps) {
         </Link>
       </div>
 
-      {/* Nav */}
       <nav className="flex flex-col gap-1 px-3 py-4">
         {NAV.map((item) => {
           const activo = pathname.startsWith(item.href)
@@ -85,7 +83,6 @@ export default function Sidebar({ userEmail }: SidebarProps) {
         })}
       </nav>
 
-      {/* Usuario + logout */}
       <div className="mt-auto border-t border-legnar-border px-4 py-4">
         <p className="mb-3 truncate text-xs text-legnar-gray" title={userEmail}>
           {userEmail}

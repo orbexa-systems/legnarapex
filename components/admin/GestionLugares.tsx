@@ -35,7 +35,6 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
 
   return (
     <div className="rounded-2xl border border-legnar-border bg-legnar-dark">
-      {/* Header */}
       <div className="flex items-center justify-between border-b border-legnar-border px-6 py-4">
         <h2 className="text-base font-bold uppercase tracking-widest text-legnar-white">
           Lugares de operación
@@ -48,7 +47,6 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
         </button>
       </div>
 
-      {/* Formulario nuevo lugar */}
       {agregando && (
         <form onSubmit={handleAgregar} className="flex gap-3 border-b border-legnar-border px-6 py-4">
           <input
@@ -70,7 +68,6 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
         </form>
       )}
 
-      {/* Lista */}
       <ul className="divide-y divide-legnar-border/50">
         {lugares.length === 0 && (
           <li className="px-6 py-8 text-center text-sm text-legnar-gray">
@@ -80,24 +77,23 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
         {lugares.map((lugar) => (
           <li key={lugar.id} className="flex items-center justify-between px-6 py-4">
             <div>
-              <p className="text-sm font-semibold text-legnar-white">{lugar.nombre}</p>
+              <p className="text-sm font-semibold text-legnar-white">{lugar.name}</p>
               <p className="text-xs text-legnar-gray">
-                {lugar.activo ? 'Visible en galería' : 'Oculto en galería'}
+                {lugar.active ? 'Visible en galería' : 'Oculto en galería'}
               </p>
             </div>
 
-            {/* Toggle */}
             <button
-              onClick={() => handleToggle(lugar.id, lugar.activo)}
+              onClick={() => handleToggle(lugar.id, lugar.active)}
               disabled={pending}
               className={`relative h-6 w-11 rounded-full transition-colors disabled:opacity-40 ${
-                lugar.activo ? 'bg-legnar-red' : 'bg-legnar-border'
+                lugar.active ? 'bg-legnar-red' : 'bg-legnar-border'
               }`}
-              aria-label={lugar.activo ? 'Desactivar' : 'Activar'}
+              aria-label={lugar.active ? 'Desactivar' : 'Activar'}
             >
               <span
                 className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                  lugar.activo ? 'translate-x-5' : 'translate-x-0.5'
+                  lugar.active ? 'translate-x-5' : 'translate-x-0.5'
                 }`}
               />
             </button>

@@ -7,7 +7,6 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
 
-      {/* Fondo: glow de fuego centrado */}
       <div
         aria-hidden
         className="animate-fire-pulse pointer-events-none absolute inset-0 rounded-full"
@@ -17,21 +16,17 @@ export default function Hero() {
         }}
       />
 
-      {/* Línea de acento superior */}
       <div
         aria-hidden
         className="absolute top-0 left-0 right-0 h-px"
         style={{ background: 'linear-gradient(90deg, transparent, #C0392B, #F48C06, transparent)' }}
       />
 
-      {/* Contenido */}
       <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl">
-        {/* Eyebrow */}
         <span className="animate-fade-up inline-block rounded-full border border-legnar-gold/40 bg-legnar-gold/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-legnar-gold">
           Fotografía de Motociclismo en Pista
         </span>
 
-        {/* Título principal */}
         <h1
           className="animate-fade-up-d1 text-[clamp(4rem,14vw,10rem)] font-display leading-none tracking-wide uppercase"
           style={{
@@ -45,13 +40,11 @@ export default function Hero() {
           Legnar Apex
         </h1>
 
-        {/* Tagline */}
         <p className="animate-fade-up-d2 max-w-xl text-lg leading-relaxed text-legnar-gray">
           Tus mejores momentos en pista,{' '}
           <span className="text-legnar-white font-semibold">inmortalizados.</span>
         </p>
 
-        {/* CTAs */}
         <div className="animate-fade-up-d3 flex flex-col sm:flex-row gap-4 pt-2">
           <Link
             href="/galeria"
@@ -74,13 +67,11 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Pregunta por tu foto */}
         <p className="animate-fade-up-d3 text-xs tracking-widest text-legnar-gray/60 uppercase pt-2">
           Pregunta por tu foto
         </p>
       </div>
 
-      {/* Indicador de scroll */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-legnar-gray/40">
         <span className="text-xs tracking-widest uppercase">scroll</span>
         <svg className="h-4 w-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
