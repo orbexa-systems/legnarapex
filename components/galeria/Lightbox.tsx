@@ -1,17 +1,16 @@
 'use client'
 
 import { useEffect } from 'react'
-import type { Foto } from '@/lib/data/fotos'
+import type { Photo } from '@/lib/data/fotos'
 
 const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5625384283'
 
 interface LightboxProps {
-  foto: Foto
+  photo: Photo
   onClose: () => void
 }
 
-export default function Lightbox({ foto, onClose }: LightboxProps) {
-  // Close on Escape key
+export default function Lightbox({ photo, onClose }: LightboxProps) {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose()
@@ -20,14 +19,13 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
-  // Lock body scroll while open
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
 
   const mensaje = encodeURIComponent(
-    `Hola, vi mi foto con el código ${foto.code} en Legnarapex, me interesa comprarla 🏍️`,
+    `Hola, vi mi foto con el código ${photo.code} en Legnarapex, me interesa comprarla 🏍️`,
   )
   const waUrl = `https://wa.me/${WA_NUMBER}?text=${mensaje}`
 
@@ -58,8 +56,8 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={foto.photo_url}
-            alt={`Foto ${foto.code}`}
+            src={photo.photo_url}
+            alt={`Foto ${photo.code}`}
             draggable={false}
             className="photo-protected h-full w-full object-contain"
           />
@@ -69,16 +67,16 @@ export default function Lightbox({ foto, onClose }: LightboxProps) {
           <div className="text-center sm:text-left">
             <p className="text-[10px] uppercase tracking-widest text-legnar-gray">Código de foto</p>
             <p className="font-mono text-2xl font-bold tracking-widest text-legnar-gold">
-              {foto.code}
+              {photo.code}
             </p>
             <p className="mt-0.5 text-xs text-legnar-gray">
-              {new Date(foto.photo_date).toLocaleDateString('es-MX', {
+              {new Date(photo.photo_date).toLocaleDateString('es-MX', {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
               })}{' '}
-              · {foto.photo_time.slice(0, 5)} h
+              · {photo.photo_time.slice(0, 5)} h
             </p>
           </div>
 

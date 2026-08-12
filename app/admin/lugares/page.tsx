@@ -1,10 +1,10 @@
 import { adminSupabase } from '@/lib/supabase-admin'
 import GestionLugares from '@/components/admin/GestionLugares'
-import type { Lugar } from '@/lib/data/lugares'
+import type { TrackLocation } from '@/lib/data/lugares'
 
 export const metadata = { title: 'Lugares — Admin Legnar Apex' }
 
-async function getTodosLosLugares(): Promise<Lugar[]> {
+async function getAllLocations(): Promise<TrackLocation[]> {
   const { data, error } = await adminSupabase
     .from('locations')
     .select('*')
@@ -14,7 +14,7 @@ async function getTodosLosLugares(): Promise<Lugar[]> {
 }
 
 export default async function AdminLugaresPage() {
-  const lugares = await getTodosLosLugares()
+  const lugares = await getAllLocations()
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-8">

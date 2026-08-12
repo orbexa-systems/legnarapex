@@ -3,13 +3,13 @@
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 import { eliminarFoto } from '@/app/admin/fotos/actions'
-import type { FotoConLugar } from '@/lib/data/fotos'
+import type { PhotoWithLocation } from '@/lib/data/fotos'
 
 function diasRestantes(expiresAt: string) {
   return Math.ceil((new Date(expiresAt).getTime() - Date.now()) / 86_400_000)
 }
 
-export default function ListaFotos({ fotos }: { fotos: FotoConLugar[] }) {
+export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
 

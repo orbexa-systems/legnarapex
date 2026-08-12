@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import type { Lugar } from '@/lib/data/lugares'
+import type { TrackLocation } from '@/lib/data/lugares'
 
 type ArchivoEstado = {
   file: File
@@ -12,7 +12,7 @@ type ArchivoEstado = {
 }
 
 interface SubidaFotosProps {
-  lugares: Lugar[]
+  lugares: TrackLocation[]
 }
 
 export default function SubidaFotos({ lugares }: SubidaFotosProps) {

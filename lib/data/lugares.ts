@@ -1,13 +1,14 @@
 import { supabase } from '@/lib/supabase'
 
-export type Lugar = {
+// Named TrackLocation to avoid collision with the DOM built-in Location interface
+export type TrackLocation = {
   id: string
   name: string
   active: boolean
   created_at: string
 }
 
-export async function getLugares(): Promise<Lugar[]> {
+export async function getLocations(): Promise<TrackLocation[]> {
   const { data, error } = await supabase
     .from('locations')
     .select('*')
@@ -18,7 +19,7 @@ export async function getLugares(): Promise<Lugar[]> {
   return data ?? []
 }
 
-export async function getLugarById(id: string): Promise<Lugar | null> {
+export async function getLocationById(id: string): Promise<TrackLocation | null> {
   const { data, error } = await supabase
     .from('locations')
     .select('*')

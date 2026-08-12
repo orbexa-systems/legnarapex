@@ -2,27 +2,26 @@
 
 import type { Photo } from '@/lib/data/fotos'
 
-interface FotoCardProps {
-  foto: Photo
-  onOpen: (foto: Photo) => void
+interface PhotoCardProps {
+  photo: Photo
+  onOpen: (photo: Photo) => void
 }
 
-/** @deprecated Use PhotoCard instead */
-export default function FotoCard({ foto, onOpen }: FotoCardProps) {
+export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
   return (
     <button
-      onClick={() => onOpen(foto)}
+      onClick={() => onOpen(photo)}
       className="group relative flex flex-col overflow-hidden rounded-xl border border-legnar-border bg-legnar-dark text-left transition-all duration-300 hover:border-legnar-red/50 hover:shadow-[0_0_24px_#C0392B22] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-legnar-red"
     >
       <div
         className="relative aspect-[3/2] w-full overflow-hidden bg-legnar-dark"
         onContextMenu={(e) => e.preventDefault()}
       >
-        {/* watermarked image — drag and context menu disabled */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={foto.photo_url}
-          alt={`Foto ${foto.code}`}
+          src={photo.photo_url}
+          alt={`Foto ${photo.code}`}
+          loading="lazy"
           draggable={false}
           className="photo-protected h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -30,7 +29,7 @@ export default function FotoCard({ foto, onOpen }: FotoCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-legnar-dark/70 via-transparent to-transparent" />
 
         <span className="absolute right-2 top-2 rounded-md bg-black/60 px-2 py-0.5 font-mono text-[10px] text-legnar-gray backdrop-blur-sm">
-          {foto.photo_time.slice(0, 5)}
+          {photo.photo_time.slice(0, 5)}
         </span>
 
         <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -44,10 +43,10 @@ export default function FotoCard({ foto, onOpen }: FotoCardProps) {
 
       <div className="flex items-center justify-between px-3 py-2.5">
         <span className="font-mono text-xs font-semibold tracking-wider text-legnar-gold">
-          {foto.code}
+          {photo.code}
         </span>
         <span className="text-[10px] text-legnar-gray">
-          {new Date(foto.photo_date).toLocaleDateString('es-MX', {
+          {new Date(photo.photo_date).toLocaleDateString('es-MX', {
             day: '2-digit',
             month: 'short',
           })}
