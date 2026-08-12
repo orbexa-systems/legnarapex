@@ -46,7 +46,7 @@ export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
           {photo.code}
         </span>
         <span className="text-[10px] text-legnar-gray">
-          {new Date(photo.photo_date).toLocaleDateString('es-MX', {
+          {new Date(photo.photo_date + 'T00:00:00').toLocaleDateString('es-MX', {
             day: '2-digit',
             month: 'short',
           })}
