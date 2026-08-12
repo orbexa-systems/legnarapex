@@ -6,11 +6,11 @@ Este archivo va en la raíz del proyecto Legnarapex. Claude Code lo lee automát
 
 ---
 
-## Protocolo de inicio de sesión
+## Protocolo de inicio de sesión (AUTOMÁTICO)
 
-Cuando el usuario diga **"inicio de sesion"** (o variante como "iniciamos", "nueva sesion"), ejecutar automáticamente estos pasos antes de responder cualquier otra cosa:
+**Al inicio de cada conversación nueva**, sin esperar ningún mensaje del usuario, ejecutar automáticamente estos pasos:
 
-1. Leer `STATUS.md` en la raíz del proyecto (`../STATUS.md` relativo a este archivo)
+1. Leer los archivos de memoria del proyecto en `C:\Users\sihec\.claude\projects\C--Users-sihec-Documents-orbexa-systems-code-legnarapex\memory\` (especialmente `project_status.md`)
 2. Correr en `legnarapex-frontend/`:
    ```bash
    git log --oneline -8
@@ -20,10 +20,12 @@ Cuando el usuario diga **"inicio de sesion"** (o variante como "iniciamos", "nue
 3. Dar un briefing estructurado con:
    - **Rama actual** y si tiene cambios sin commitear
    - **Últimos commits** (qué se hizo la sesión anterior)
-   - **Estado del proyecto** según `STATUS.md`
-   - **Sugerencia de qué trabajar** en esta sesión según los pendientes
+   - **Pendientes críticos** del proyecto
+   - **Sugerencia de qué trabajar** en esta sesión
 
 Este briefing debe ser conciso — máximo 20 líneas. El objetivo es que el usuario pueda arrancar a trabajar en menos de un minuto.
+
+Si el usuario escribe primero, dar el briefing antes de responder su mensaje.
 
 ---
 
