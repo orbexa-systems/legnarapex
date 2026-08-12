@@ -1,12 +1,12 @@
-import { getLugares } from '@/lib/data/lugares'
-import { getFotosAdmin } from '@/lib/data/fotos'
+import { getLocations } from '@/lib/data/lugares'
+import { getPhotosAdmin } from '@/lib/data/fotos'
 import SubidaFotos from '@/components/admin/SubidaFotos'
 import ListaFotos from '@/components/admin/ListaFotos'
 
 export const metadata = { title: 'Fotos — Admin Legnar Apex' }
 
 export default async function AdminFotosPage() {
-  const [lugares, fotos] = await Promise.all([getLugares(), getFotosAdmin()])
+  const [lugares, fotos] = await Promise.all([getLocations(), getPhotosAdmin()])
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-8">

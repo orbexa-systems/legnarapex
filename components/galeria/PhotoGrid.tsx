@@ -7,38 +7,66 @@ import Lightbox from './Lightbox'
 
 const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5625384283'
 
-export default function GridFotos({ fotos }: { fotos: Photo[] }) {
-  const [fotoActiva, setFotoActiva] = useState<Photo | null>(null)
+interface PhotoGridProps {
+  photos: Photo[]
+  hasFilters: boolean
+}
 
-  if (fotos.length === 0) {
-    return <EstadoVacio />
+export default function PhotoGrid({ photos, hasFilters }: PhotoGridProps) {
+  const [activePhoto, setActivePhoto] = useState<Photo | null>(null)
+
+  if (!hasFilters) {
+    return <EmptyPrompt />
+  }
+
+  if (photos.length === 0) {
+    return <EmptyResults />
   }
 
   return (
     <>
       <div className="mx-auto max-w-6xl px-6 pb-2 pt-6">
         <p className="text-xs text-legnar-gray">
-          <span className="font-semibold text-legnar-white">{fotos.length}</span>{' '}
-          {fotos.length === 1 ? 'foto encontrada' : 'fotos encontradas'}
+          <span className="font-semibold text-legnar-white">{photos.length}</span>{' '}
+          {photos.length === 1 ? 'foto encontrada' : 'fotos encontradas'}
         </p>
       </div>
 
       <div className="mx-auto max-w-6xl px-6 pb-16 pt-2">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
-          {fotos.map((foto) => (
-            <PhotoCard key={foto.id} photo={foto} onOpen={setFotoActiva} />
+          {photos.map((photo) => (
+            <PhotoCard key={photo.id} photo={photo} onOpen={setActivePhoto} />
           ))}
         </div>
       </div>
 
-      {fotoActiva && (
-        <Lightbox photo={fotoActiva} onClose={() => setFotoActiva(null)} />
+      {activePhoto && (
+        <Lightbox photo={activePhoto} onClose={() => setActivePhoto(null)} />
       )}
     </>
   )
 }
 
-function EstadoVacio() {
+function EmptyPrompt() {
+  return (
+    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-24 text-center">
+      <div className="flex h-20 w-20 items-center justify-center rounded-full border border-legnar-border bg-legnar-dark">
+        <svg className="h-8 w-8 text-legnar-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <div>
+        <h2 className="mb-2 text-xl font-bold text-legnar-white">Busca tus fotos</h2>
+        <p className="text-sm leading-relaxed text-legnar-gray">
+          Selecciona el lugar y la fecha en que rodaste, elige tu franja horaria
+          y aparecerán tus fotos. También puedes buscar directo por código.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function EmptyResults() {
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-6 px-6 py-24 text-center">
       <div className="flex h-20 w-20 items-center justify-center rounded-full border border-legnar-border bg-legnar-dark">
@@ -49,9 +77,7 @@ function EstadoVacio() {
       </div>
 
       <div>
-        <h2 className="mb-2 text-xl font-bold text-legnar-white">
-          No encontramos fotos
-        </h2>
+        <h2 className="mb-2 text-xl font-bold text-legnar-white">No encontramos fotos</h2>
         <p className="text-sm leading-relaxed text-legnar-gray">
           Prueba con otro código, lugar o fecha. Si ya estuviste en pista, escríbenos directamente.
         </p>

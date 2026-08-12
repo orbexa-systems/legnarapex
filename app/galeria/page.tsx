@@ -1,14 +1,15 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
-import { getLugares } from '@/lib/data/lugares'
-import { getFotosByCriteria } from '@/lib/data/fotos'
-import FiltrosBusqueda from '@/components/galeria/FiltrosBusqueda'
-import GridFotos from '@/components/galeria/GridFotos'
+import { getLocations } from '@/lib/data/lugares'
+import { getPhotosByCriteria, getAvailableTimeSlots } from '@/lib/data/fotos'
+import SearchFilters from '@/components/galeria/SearchFilters'
+import PhotoGrid from '@/components/galeria/PhotoGrid'
 
 type SearchParams = {
   lugar?: string
   fecha?: string
   codigo?: string
+  franja?: string
 }
 
 export const metadata = {
@@ -23,14 +24,25 @@ export default async function GaleriaPage({
 }) {
   const params = await searchParams
 
-  const [lugares, fotos] = await Promise.all([
-    getLugares(),
-    getFotosByCriteria({
-      location_id: params.lugar,
-      date: params.fecha,
-      code: params.codigo,
-    }),
+  const hasLocationAndDate = !!(params.lugar && params.fecha)
+  const shouldFetchPhotos = (hasLocationAndDate && !!params.franja) || !!params.codigo
+
+  const [locations, photos, slots] = await Promise.all([
+    getLocations(),
+    shouldFetchPhotos
+      ? getPhotosByCriteria({
+          location_id: params.lugar,
+          date: params.fecha,
+          code: params.codigo,
+          time_slot: params.franja,
+        })
+      : Promise.resolve([]),
+    hasLocationAndDate
+      ? getAvailableTimeSlots(params.lugar!, params.fecha!)
+      : Promise.resolve([]),
   ])
+
+  const hasFilters = shouldFetchPhotos
 
   return (
     <div className="min-h-screen">
@@ -76,22 +88,21 @@ export default async function GaleriaPage({
             Tus fotos
           </h1>
           <p className="mt-1 text-sm text-legnar-gray">
-            Filtra por lugar, fecha o ingresa el código de tu tarjeta
+            Filtra por lugar, fecha y franja horaria, o ingresa el código de tu tarjeta
           </p>
         </div>
       </div>
 
-      {/* Suspense required because FiltrosBusqueda uses useSearchParams */}
-      <Suspense fallback={<FiltrosSkeleton />}>
-        <FiltrosBusqueda lugares={lugares} />
+      <Suspense fallback={<FiltersSkeleton />}>
+        <SearchFilters locations={locations} slots={slots} />
       </Suspense>
 
-      <GridFotos fotos={fotos} />
+      <PhotoGrid photos={photos} hasFilters={hasFilters} />
     </div>
   )
 }
 
-function FiltrosSkeleton() {
+function FiltersSkeleton() {
   return (
     <div className="border-b border-legnar-border bg-legnar-black/90 px-6 py-4">
       <div className="mx-auto flex max-w-6xl gap-4">

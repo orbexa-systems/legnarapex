@@ -3,10 +3,10 @@
 import { useRouter } from 'next/navigation'
 import { useTransition, useState } from 'react'
 import { toggleLugar, agregarLugar } from '@/app/admin/lugares/actions'
-import type { Lugar } from '@/lib/data/lugares'
+import type { TrackLocation } from '@/lib/data/lugares'
 
 interface GestionLugaresProps {
-  lugares: Lugar[]
+  lugares: TrackLocation[]
 }
 
 export default function GestionLugares({ lugares }: GestionLugaresProps) {
