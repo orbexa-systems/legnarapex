@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
 import { getLocations } from '@/lib/data/lugares'
-import { getPhotosByCriteria, getAvailableTimeSlots } from '@/lib/data/fotos'
+import { getPhotosPaginated, getAvailableTimeSlots } from '@/lib/data/fotos'
 import SearchFilters from '@/components/galeria/SearchFilters'
 import PhotoGrid from '@/components/galeria/PhotoGrid'
 
@@ -27,16 +27,18 @@ export default async function GaleriaPage({
   const hasLocationAndDate = !!(params.lugar && params.fecha)
   const shouldFetchPhotos = (hasLocationAndDate && !!params.franja) || !!params.codigo
 
-  const [locations, photos, slots] = await Promise.all([
+  const queryParams = {
+    location_id: params.lugar,
+    date: params.fecha,
+    code: params.codigo,
+    time_slot: params.franja,
+  }
+
+  const [locations, paginated, slots] = await Promise.all([
     getLocations(),
     shouldFetchPhotos
-      ? getPhotosByCriteria({
-          location_id: params.lugar,
-          date: params.fecha,
-          code: params.codigo,
-          time_slot: params.franja,
-        })
-      : Promise.resolve([]),
+      ? getPhotosPaginated(queryParams, 1)
+      : Promise.resolve({ photos: [], total: 0, hasMore: false }),
     hasLocationAndDate
       ? getAvailableTimeSlots(params.lugar!, params.fecha!)
       : Promise.resolve([]),
@@ -97,7 +99,14 @@ export default async function GaleriaPage({
         <SearchFilters locations={locations} slots={slots} />
       </Suspense>
 
-      <PhotoGrid photos={photos} hasFilters={hasFilters} />
+      <PhotoGrid
+        key={`${params.lugar ?? ''}-${params.fecha ?? ''}-${params.franja ?? ''}-${params.codigo ?? ''}`}
+        initialPhotos={paginated.photos}
+        initialTotal={paginated.total}
+        initialHasMore={paginated.hasMore}
+        queryParams={queryParams}
+        hasFilters={hasFilters}
+      />
     </div>
   )
 }

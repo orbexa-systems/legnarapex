@@ -1,43 +1,73 @@
 'use client'
 
 import { useState } from 'react'
-import type { Photo } from '@/lib/data/fotos'
+import type { Photo, PhotosByCriteriaParams } from '@/lib/data/fotos'
+import { useInfinitePhotos } from '@/hooks/useInfinitePhotos'
 import PhotoCard from './PhotoCard'
 import Lightbox from './Lightbox'
+import InfiniteScrollTrigger from './InfiniteScrollTrigger'
 
 const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5625384283'
 
 interface PhotoGridProps {
-  photos: Photo[]
+  initialPhotos: Photo[]
+  initialTotal: number
+  initialHasMore: boolean
+  queryParams: PhotosByCriteriaParams
   hasFilters: boolean
 }
 
-export default function PhotoGrid({ photos, hasFilters }: PhotoGridProps) {
+export default function PhotoGrid({
+  initialPhotos,
+  initialTotal,
+  initialHasMore,
+  queryParams,
+  hasFilters,
+}: PhotoGridProps) {
   const [activePhoto, setActivePhoto] = useState<Photo | null>(null)
+  const { photos, isLoadingMore, hasMore, total, error, loadMore } = useInfinitePhotos(
+    initialPhotos,
+    initialHasMore,
+    initialTotal,
+    queryParams,
+  )
 
-  if (!hasFilters) {
-    return <EmptyPrompt />
-  }
-
-  if (photos.length === 0) {
-    return <EmptyResults />
-  }
+  if (!hasFilters) return <EmptyPrompt />
+  if (photos.length === 0) return <EmptyResults />
 
   return (
     <>
       <div className="mx-auto max-w-6xl px-6 pb-2 pt-6">
         <p className="text-xs text-legnar-gray">
-          <span className="font-semibold text-legnar-white">{photos.length}</span>{' '}
-          {photos.length === 1 ? 'foto encontrada' : 'fotos encontradas'}
+          <span className="font-semibold text-legnar-white">{photos.length}</span>
+          {' '}de{' '}
+          <span className="font-semibold text-legnar-white">{total}</span>{' '}
+          {total === 1 ? 'foto' : 'fotos'}
         </p>
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 pb-16 pt-2">
+      <div className="mx-auto max-w-6xl px-6 pb-4 pt-2">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
           {photos.map((photo) => (
             <PhotoCard key={photo.id} photo={photo} onOpen={setActivePhoto} />
           ))}
         </div>
+
+        <InfiniteScrollTrigger
+          onIntersect={loadMore}
+          isLoading={isLoadingMore}
+          hasMore={hasMore}
+        />
+
+        {!hasMore && photos.length > 0 && (
+          <p className="py-10 text-center text-sm text-legnar-gray">
+            Ya viste todas las fotos disponibles
+          </p>
+        )}
+
+        {error && (
+          <p className="py-4 text-center text-sm text-legnar-red">{error}</p>
+        )}
       </div>
 
       {activePhoto && (
@@ -75,14 +105,12 @@ function EmptyResults() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       </div>
-
       <div>
         <h2 className="mb-2 text-xl font-bold text-legnar-white">No encontramos fotos</h2>
         <p className="text-sm leading-relaxed text-legnar-gray">
           Prueba con otro código, lugar o fecha. Si ya estuviste en pista, escríbenos directamente.
         </p>
       </div>
-
       <a
         href={`https://wa.me/${WA_NUMBER}`}
         target="_blank"

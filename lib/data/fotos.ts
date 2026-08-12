@@ -24,14 +24,14 @@ export type PhotosByCriteriaParams = {
 }
 
 const SLOT_MINUTES = 20
+export const PAGE_SIZE = 20
 
-export async function getPhotosByCriteria(params: PhotosByCriteriaParams): Promise<Photo[]> {
+function buildPhotosQuery(params: PhotosByCriteriaParams) {
   let query = supabase
     .from('photos')
-    .select('*')
+    .select('*', { count: 'exact' })
     .gt('expires_at', new Date().toISOString())
     .order('photo_time', { ascending: false })
-    .limit(100)
 
   if (params.location_id) query = query.eq('location_id', params.location_id)
   if (params.date)        query = query.eq('photo_date', params.date)
@@ -47,9 +47,18 @@ export async function getPhotosByCriteria(params: PhotosByCriteriaParams): Promi
     query = query.gte('photo_time', slotStart).lt('photo_time', slotEnd)
   }
 
-  const { data, error } = await query
+  return query
+}
+
+export async function getPhotosPaginated(
+  params: PhotosByCriteriaParams,
+  page: number,
+): Promise<{ photos: Photo[]; total: number; hasMore: boolean }> {
+  const offset = (page - 1) * PAGE_SIZE
+  const { data, error, count } = await buildPhotosQuery(params).range(offset, offset + PAGE_SIZE - 1)
   if (error) throw error
-  return data ?? []
+  const total = count ?? 0
+  return { photos: data ?? [], total, hasMore: offset + PAGE_SIZE < total }
 }
 
 export async function getAvailableTimeSlots(location_id: string, date: string): Promise<string[]> {
