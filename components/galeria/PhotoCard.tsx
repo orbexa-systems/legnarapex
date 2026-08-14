@@ -12,6 +12,7 @@ export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
   return (
     <button
       onClick={() => onOpen(photo)}
+      onMouseEnter={() => { const i = new window.Image(); i.src = photo.photo_url }}
       className="group relative flex flex-col overflow-hidden rounded-xl border border-legnar-border bg-legnar-dark text-left transition-all duration-300 hover:border-legnar-red/50 hover:shadow-[0_0_24px_#C0392B22] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-legnar-red"
     >
       <div
