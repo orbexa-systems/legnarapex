@@ -63,7 +63,7 @@ export default function Lightbox({ photo, onClose }: LightboxProps) {
             </div>
           )}
           <Image
-            src={photo.photo_url}
+            src={`/api/foto/${photo.code}`}
             alt={`Foto ${photo.code}`}
             fill
             sizes="(max-width: 640px) 95vw, 768px"

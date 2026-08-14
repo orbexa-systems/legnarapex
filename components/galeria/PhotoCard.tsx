@@ -12,7 +12,7 @@ export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
   return (
     <button
       onClick={() => onOpen(photo)}
-      onMouseEnter={() => { const i = new window.Image(); i.src = photo.photo_url }}
+      onMouseEnter={() => { const i = new window.Image(); i.src = `/api/foto/${photo.code}` }}
       className="group relative flex flex-col overflow-hidden rounded-xl border border-legnar-border bg-legnar-dark text-left transition-all duration-300 hover:border-legnar-red/50 hover:shadow-[0_0_24px_#C0392B22] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-legnar-red"
     >
       <div
@@ -20,7 +20,7 @@ export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
         onContextMenu={(e) => e.preventDefault()}
       >
         <Image
-          src={photo.photo_url}
+          src={`/api/foto/${photo.code}`}
           alt={`Foto ${photo.code}`}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
