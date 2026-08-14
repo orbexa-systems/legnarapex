@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import type { Photo } from '@/lib/data/fotos'
 
 interface PhotoCardProps {
@@ -17,13 +18,13 @@ export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
         className="relative aspect-[3/2] w-full overflow-hidden bg-legnar-dark"
         onContextMenu={(e) => e.preventDefault()}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={photo.photo_url}
           alt={`Foto ${photo.code}`}
-          loading="lazy"
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           draggable={false}
-          className="photo-protected h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="photo-protected object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-legnar-dark/70 via-transparent to-transparent" />
