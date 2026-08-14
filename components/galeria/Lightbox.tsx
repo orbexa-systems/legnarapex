@@ -39,7 +39,7 @@ export default function Lightbox({ photo, onClose }: LightboxProps) {
       <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
 
       <div
-        className="relative z-10 flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-legnar-border bg-legnar-dark shadow-2xl max-h-[90vh]"
+        className="relative z-10 flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-legnar-border bg-legnar-dark shadow-2xl h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
