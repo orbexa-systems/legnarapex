@@ -31,6 +31,20 @@ Registro de decisiones de arquitectura y diseño del proyecto.
 
 ---
 
+## [2026-08-13] Watermark SOLO en el uploader Python — riesgo explícito y aceptado
+
+**Contexto:** Auditoría de performance (2026-08-13) confirmó que `WatermarkService.java` no está inyectado en `FotoService.java`. El backend sube cualquier JPG que reciba sin validar ni aplicar watermark. El procesamiento completo (CR3 → JPG → watermark diagonal 45°) ocurre exclusivamente en el uploader Python antes de enviar al backend.
+
+**Decisión:** Se mantiene esta arquitectura de forma intencional. El cliente (Legnarapex) entrega las fotos únicamente a través del uploader Python. No existe ni se planea en corto plazo un flujo alternativo de subida (web, móvil, etc.).
+
+**Riesgo documentado y aceptado:** Si alguien sube una foto directamente al endpoint `POST /fotos/upload` sin pasar por el uploader Python (por ejemplo con curl, Postman o cualquier cliente HTTP), la foto se almacenará y mostrará **sin marca de agua**. El backend no tiene forma de detectarlo ni rechazarlo porque no tiene información sobre el origen.
+
+**Mitigación adoptada:** Documentar explícitamente este comportamiento. Si en el futuro se habilita subida desde otro canal, se debe re-activar `WatermarkService` en `FotoService` o añadir una validación de origen (header secreto, firma, etc.) antes de aceptar el upload.
+
+**Archivos afectados:** `WatermarkService.java` (código presente pero inactivo), `FotoService.java` (no inyecta WatermarkService).
+
+---
+
 ## [2026-08-11] Calidad JPG reducida de 92% a 85%
 
 **Contexto:** Cada foto pesaba ~8MB con calidad 92%. Con 8 workers en paralelo, el ancho de banda de subida era el cuello de botella.
@@ -75,10 +89,38 @@ Registro de decisiones de arquitectura y diseño del proyecto.
 
 ---
 
+---
+
+## [2026-08-13] Estrategia de servicio de imágenes — migración a next/image
+
+**Contexto:** Auditoría de performance detectó que `PhotoCard` y `Lightbox` usan `<img>` nativo apuntando directamente a las URLs de R2 (2400px JPEG). Un grid de 20 fotos descarga 16–40 MB solo para mostrar thumbnails de ~300px. En móvil sin wifi, eso equivale a 30–90 segundos de carga visible.
+
+**Decisión:** Migrar a `next/image` para aprovechar Vercel Image Optimization (resize automático al tamaño del elemento, conversión WebP/AVIF, srcset). Esto requiere también implementar el proxy `/api/foto/[codigo]` para dejar de exponer URLs directas de R2.
+
+**Impacto esperado:** Reducción de payload en grid ~85–95% (de ~1.5 MB por imagen a ~20–40 KB WebP en thumbnail). Cache-Control `immutable` en R2 para segunda visita desde cache local (<5ms).
+
+**Alternativas consideradas:** Generar thumbnails separados al subir (más control pero más complejidad de storage), usar Cloudflare Image Resizing (requiere plan Cloudflare Pro).
+
+---
+
 ## Decisiones pendientes
 
-- [ ] Dominio personalizado para Vercel
-- [ ] Middleware de auth (`middleware.ts`) para proteger `/admin/*` en el edge
-- [ ] Proxy de imágenes `/api/foto/[codigo]` para ocultar URLs de R2
-- [ ] Filtro de franja horaria en galería pública
+**Críticas — bloquean producción real:**
+- [ ] `FotoService.java`: cambiar `EXPIRY_DAYS = 1` → `8` antes de lanzar
+- [ ] `FotoCleanupScheduler.java`: cron ajustar a 2 AM México (8:00 UTC)
+- [ ] Middleware de auth (`middleware.ts`) — `/admin/*` sin protección edge actualmente
+
+**Alta prioridad — performance y seguridad:**
+- [ ] Proxy de imágenes `/api/foto/[codigo]` — URLs R2 expuestas en HTML del cliente
+- [ ] Migrar `<img>` → `next/image` en `PhotoCard` y `Lightbox`
+- [ ] Cache-Control `immutable` en `R2StorageService.upload()` — sin headers hoy
+- [ ] Fixes de memoria en `uploader.py` (ver `WORK_PLAN.md`)
+
+**Media prioridad:**
 - [ ] Staging environment en Railway trackeando `develop`
+- [ ] Compresión Brotli/Gzip en Spring Boot (`server.compression.enabled=true`)
+
+**Baja prioridad:**
+- [ ] Dominio personalizado para Vercel
+- [ ] Empaquetar uploader como `.exe` con PyInstaller (espera logo `.ico`)
+- [ ] Validación de origen en `POST /fotos/upload` si se habilita otro canal de subida
