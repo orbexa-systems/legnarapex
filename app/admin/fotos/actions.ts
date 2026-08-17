@@ -27,3 +27,8 @@ export async function eliminarFoto(id: string): Promise<void> {
     if (error) throw new Error(error.message)
   }
 }
+
+export async function eliminarFotos(ids: string[]): Promise<void> {
+  await requireAuth()
+  await Promise.all(ids.map((id) => eliminarFoto(id)))
+}
