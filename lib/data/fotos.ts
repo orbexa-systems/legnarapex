@@ -7,7 +7,6 @@ export type Photo = {
   location_id: string
   photo_date: string
   photo_time: string
-  photo_url: string
   uploaded_at: string
   expires_at: string
 }
@@ -26,10 +25,12 @@ export type PhotosByCriteriaParams = {
 const SLOT_MINUTES = 20
 export const PAGE_SIZE = 20
 
+const PUBLIC_FIELDS = 'id, code, location_id, photo_date, photo_time, uploaded_at, expires_at'
+
 function buildPhotosQuery(params: PhotosByCriteriaParams) {
   let query = supabase
     .from('photos')
-    .select('*', { count: 'exact' })
+    .select(PUBLIC_FIELDS, { count: 'exact' })
     .gt('expires_at', new Date().toISOString())
     .order('photo_time', { ascending: false })
 
@@ -87,7 +88,7 @@ export async function getAvailableTimeSlots(location_id: string, date: string): 
 export async function getPhotosByCode(code: string): Promise<Photo[]> {
   const { data, error } = await supabase
     .from('photos')
-    .select('*')
+    .select(PUBLIC_FIELDS)
     .ilike('code', `%${code}%`)
     .gt('expires_at', new Date().toISOString())
 
@@ -98,11 +99,11 @@ export async function getPhotosByCode(code: string): Promise<Photo[]> {
 export async function getPhotosAdmin(): Promise<PhotoWithLocation[]> {
   const { data, error } = await adminSupabase
     .from('photos')
-    .select('*, locations(name)')
+    .select(`${PUBLIC_FIELDS}, locations(name)`)
     .order('uploaded_at', { ascending: false })
 
   if (error) throw error
-  return (data ?? []) as PhotoWithLocation[]
+  return (data ?? []) as unknown as PhotoWithLocation[]
 }
 
 export async function deletePhoto(id: string): Promise<void> {
