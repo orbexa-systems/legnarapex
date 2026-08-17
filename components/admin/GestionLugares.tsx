@@ -86,14 +86,14 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
             <button
               onClick={() => handleToggle(lugar.id, lugar.active)}
               disabled={pending}
-              className={`relative h-6 w-11 overflow-hidden rounded-full transition-colors disabled:opacity-40 ${
+              className={`relative h-6 w-11 rounded-full transition-colors disabled:opacity-40 ${
                 lugar.active ? 'bg-legnar-red' : 'bg-legnar-border'
               }`}
               aria-label={lugar.active ? 'Desactivar' : 'Activar'}
             >
               <span
-                className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                  lugar.active ? 'translate-x-5' : 'translate-x-0.5'
+                className={`absolute top-[2px] h-5 w-5 rounded-full bg-white shadow transition-all duration-200 ${
+                  lugar.active ? 'left-[22px]' : 'left-[2px]'
                 }`}
               />
             </button>
