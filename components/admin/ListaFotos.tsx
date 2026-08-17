@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useTransition, useState } from 'react'
-import { eliminarFoto } from '@/app/admin/fotos/actions'
+import { eliminarFoto, eliminarFotos } from '@/app/admin/fotos/actions'
 import type { PhotoWithLocation } from '@/lib/data/fotos'
 
 const PAGE_SIZE = 25
@@ -15,14 +15,53 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
   const [page, setPage] = useState(1)
+  const [selected, setSelected] = useState<Set<string>>(new Set())
 
   const totalPages = Math.ceil(fotos.length / PAGE_SIZE)
   const paginated = fotos.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const pageIds = paginated.map((f) => f.id)
+  const allPageSelected = pageIds.length > 0 && pageIds.every((id) => selected.has(id))
+
+  function toggleSelect(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
+  function toggleSelectPage() {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (allPageSelected) {
+        pageIds.forEach((id) => next.delete(id))
+      } else {
+        pageIds.forEach((id) => next.add(id))
+      }
+      return next
+    })
+  }
+
+  function clearSelection() {
+    setSelected(new Set())
+  }
 
   function handleEliminar(id: string, code: string) {
     if (!confirm(`¿Eliminar la foto ${code}? Esta acción no se puede deshacer.`)) return
     startTransition(async () => {
       await eliminarFoto(id)
+      setSelected((prev) => { const next = new Set(prev); next.delete(id); return next })
+      router.refresh()
+    })
+  }
+
+  function handleEliminarSeleccionadas() {
+    const count = selected.size
+    if (!confirm(`¿Eliminar ${count} foto(s) seleccionada(s)? Esta acción no se puede deshacer.`)) return
+    const ids = Array.from(selected)
+    startTransition(async () => {
+      await eliminarFotos(ids)
+      clearSelection()
       router.refresh()
     })
   }
@@ -37,6 +76,7 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
 
   return (
     <div className="rounded-2xl border border-legnar-border bg-legnar-dark">
+      {/* Header */}
       <div className="flex items-center justify-between border-b border-legnar-border px-6 py-4">
         <h2 className="text-base font-bold uppercase tracking-widest text-legnar-white">
           Fotos activas
@@ -51,10 +91,44 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
         )}
       </div>
 
+      {/* Bulk action bar */}
+      {selected.size > 0 && (
+        <div className="flex items-center justify-between border-b border-legnar-border bg-legnar-red/10 px-6 py-3">
+          <span className="text-sm font-medium text-legnar-white">
+            {selected.size} foto(s) seleccionada(s)
+          </span>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={clearSelection}
+              className="text-xs text-legnar-gray transition-colors hover:text-legnar-white"
+            >
+              Deseleccionar todo
+            </button>
+            <button
+              onClick={handleEliminarSeleccionadas}
+              disabled={pending}
+              className="rounded-lg bg-legnar-red px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-red-700 disabled:opacity-40"
+            >
+              Eliminar seleccionadas
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-legnar-border text-[10px] uppercase tracking-widest text-legnar-gray">
+              <th className="px-4 py-3 text-left w-8">
+                <input
+                  type="checkbox"
+                  checked={allPageSelected}
+                  onChange={toggleSelectPage}
+                  className="h-4 w-4 cursor-pointer accent-legnar-red"
+                  title="Seleccionar página"
+                />
+              </th>
               <th className="px-4 py-3 text-left">Código</th>
               <th className="px-4 py-3 text-left">Lugar</th>
               <th className="px-4 py-3 text-left">Fecha</th>
@@ -68,9 +142,23 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
               const dias = diasRestantes(foto.expires_at)
               const expiraColor =
                 dias <= 1 ? 'text-red-400' : dias <= 3 ? 'text-yellow-400' : 'text-legnar-gray'
+              const isSelected = selected.has(foto.id)
 
               return (
-                <tr key={foto.id} className="transition-colors hover:bg-legnar-border/20">
+                <tr
+                  key={foto.id}
+                  className={`transition-colors hover:bg-legnar-border/20 ${
+                    isSelected ? 'bg-legnar-red/5' : ''
+                  }`}
+                >
+                  <td className="px-4 py-3">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => toggleSelect(foto.id)}
+                      className="h-4 w-4 cursor-pointer accent-legnar-red"
+                    />
+                  </td>
                   <td className="px-4 py-3 font-mono font-semibold tracking-wider text-legnar-gold">
                     {foto.code}
                   </td>
@@ -106,6 +194,7 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
         </table>
       </div>
 
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between border-t border-legnar-border px-6 py-3">
           <button
