@@ -98,18 +98,30 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
             {selected.size} foto(s) seleccionada(s)
           </span>
           <div className="flex items-center gap-4">
-            <button
-              onClick={clearSelection}
-              className="text-xs text-legnar-gray transition-colors hover:text-legnar-white"
-            >
-              Deseleccionar todo
-            </button>
+            {!pending && (
+              <button
+                onClick={clearSelection}
+                className="text-xs text-legnar-gray transition-colors hover:text-legnar-white"
+              >
+                Deseleccionar todo
+              </button>
+            )}
             <button
               onClick={handleEliminarSeleccionadas}
               disabled={pending}
-              className="rounded-lg bg-legnar-red px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-red-700 disabled:opacity-40"
+              className="flex items-center gap-2 rounded-lg bg-legnar-red px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-red-700 disabled:opacity-60"
             >
-              Eliminar seleccionadas
+              {pending ? (
+                <>
+                  <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Eliminando…
+                </>
+              ) : (
+                'Eliminar seleccionadas'
+              )}
             </button>
           </div>
         </div>
