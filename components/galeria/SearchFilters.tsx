@@ -3,6 +3,7 @@
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import type { TrackLocation } from '@/lib/data/lugares'
+import DatePicker from './DatePicker'
 
 const SLOT_MINUTES = 20
 
@@ -91,16 +92,11 @@ export default function SearchFilters({ locations, slots }: SearchFiltersProps) 
             </select>
           </div>
 
-          <div className="flex flex-col gap-1.5 sm:w-44">
+          <div className="flex flex-col gap-1.5 sm:w-52">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
               Fecha
             </label>
-            <input
-              type="date"
-              value={fecha}
-              onChange={(e) => setFecha(e.target.value)}
-              className="rounded-lg border border-legnar-border bg-legnar-dark px-3 py-2.5 text-sm text-legnar-white outline-none transition-colors focus:border-legnar-red [color-scheme:dark]"
-            />
+            <DatePicker value={fecha} onChange={setFecha} />
           </div>
 
           {showSlotPicker && (
