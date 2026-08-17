@@ -32,7 +32,7 @@ function buildPhotosQuery(params: PhotosByCriteriaParams) {
     .from('photos')
     .select(PUBLIC_FIELDS, { count: 'exact' })
     .gt('expires_at', new Date().toISOString())
-    .order('photo_time', { ascending: false })
+    .order('photo_time', { ascending: true })
 
   if (params.location_id) query = query.eq('location_id', params.location_id)
   if (params.date)        query = query.eq('photo_date', params.date)
