@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const formData = await request.formData()
-    const response = await fetch(`${apiUrl}/fotos/upload`, {
+    const response = await fetch(`${apiUrl}/fotos/admin/upload`, {
       method: 'POST',
       body: formData,
     })
