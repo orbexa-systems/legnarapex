@@ -1,10 +1,10 @@
 const PASOS = [
   {
     numero: '01',
-    emoji: '📸',
-    titulo: 'Recibe tu tarjeta en pista',
+    emoji: '📲',
+    titulo: 'Escanea el QR en pista',
     descripcion:
-      'Al terminar tu sesión, el fotógrafo te entrega una tarjeta con acceso al sitio y el link directo a tus fotos.',
+      'Al terminar tu sesión, escanea el código QR del fotógrafo. Entra directo al sitio sin necesidad de tarjeta.',
   },
   {
     numero: '02',
@@ -15,7 +15,7 @@ const PASOS = [
   },
   {
     numero: '03',
-    emoji: '📲',
+    emoji: '💬',
     titulo: 'Contáctanos por WhatsApp',
     descripcion:
       'Manda el código de tu foto. Nosotros la editamos del RAW original y te la enviamos lista en minutos.',
