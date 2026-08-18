@@ -11,5 +11,5 @@ export async function GET() {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
   }
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, k: process.env.INTERNAL_API_KEY ?? '' })
 }

@@ -42,7 +42,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
     setArchivos((prev) => prev.filter((_, i) => i !== idx))
   }
 
-  function subirConXHR(archivo: ArchivoEstado, idx: number, backendUrl: string): Promise<void> {
+  function subirConXHR(archivo: ArchivoEstado, idx: number, backendUrl: string, internalKey: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
       const form = new FormData()
@@ -82,6 +82,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
       }
 
       xhr.open('POST', `${backendUrl}/fotos/admin/upload`)
+      xhr.setRequestHeader('X-Internal-Key', internalKey)
       xhr.send(form)
     })
   }
@@ -89,12 +90,12 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
   async function iniciarSubida() {
     if (!lugarId) return
 
-    // Verify session before uploading — keeps auth enforced via Next.js
     const authRes = await fetch('/api/admin/auth-check')
     if (!authRes.ok) {
       alert('Sesión expirada. Recarga la página.')
       return
     }
+    const { k: internalKey } = await authRes.json() as { ok: boolean; k: string }
 
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
     if (!backendUrl) {
@@ -109,7 +110,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
         prev.map((a, idx) => (idx === i ? { ...a, estado: 'subiendo' } : a)),
       )
       try {
-        await subirConXHR(archivos[i], i, backendUrl)
+        await subirConXHR(archivos[i], i, backendUrl, internalKey)
       } catch {
         // Error state is already set inside subirConXHR
       }
