@@ -1,9 +1,8 @@
 'use client'
 
-import { useCallback, useRef, useState, useTransition } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { TrackLocation } from '@/lib/data/lugares'
-import { uploadFoto } from '@/lib/actions/uploadFoto'
 
 type ArchivoEstado = {
   file: File
@@ -19,12 +18,11 @@ interface SubidaFotosProps {
 export default function SubidaFotos({ lugares }: SubidaFotosProps) {
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
-  const [isPending, startTransition] = useTransition()
 
   const [lugarId, setLugarId] = useState('')
   const [archivos, setArchivos] = useState<ArchivoEstado[]>([])
   const [isDragging, setIsDragging] = useState(false)
-  const subiendo = isPending
+  const [subiendo, setSubiendo] = useState(false)
 
   function agregarArchivos(files: FileList | null) {
     if (!files) return
@@ -44,37 +42,80 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
     setArchivos((prev) => prev.filter((_, i) => i !== idx))
   }
 
-  async function subirConAction(archivo: ArchivoEstado, idx: number): Promise<void> {
-    const form = new FormData()
-    form.append('lugar_id', lugarId)
-    form.append('file', archivo.file)
+  function subirConXHR(archivo: ArchivoEstado, idx: number, backendUrl: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      const form = new FormData()
+      form.append('lugar_id', lugarId)
+      form.append('file', archivo.file)
 
-    const result = await uploadFoto(form)
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const pct = Math.round((e.loaded / e.total) * 100)
+          setArchivos((prev) =>
+            prev.map((a, i) => (i === idx ? { ...a, progreso: pct } : a)),
+          )
+        }
+      }
 
-    if (result.ok) {
-      setArchivos((prev) =>
-        prev.map((a, i) => (i === idx ? { ...a, estado: 'ok', progreso: 100 } : a)),
-      )
-    } else {
-      const msg = result.error ?? 'Error desconocido'
-      setArchivos((prev) =>
-        prev.map((a, i) => (i === idx ? { ...a, estado: 'error', error: msg } : a)),
-      )
-    }
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          setArchivos((prev) =>
+            prev.map((a, i) => (i === idx ? { ...a, estado: 'ok', progreso: 100 } : a)),
+          )
+          resolve()
+        } else {
+          const msg = `Error ${xhr.status}`
+          setArchivos((prev) =>
+            prev.map((a, i) => (i === idx ? { ...a, estado: 'error', error: msg } : a)),
+          )
+          reject(new Error(msg))
+        }
+      }
+
+      xhr.onerror = () => {
+        const msg = 'Error de red'
+        setArchivos((prev) =>
+          prev.map((a, i) => (i === idx ? { ...a, estado: 'error', error: msg } : a)),
+        )
+        reject(new Error(msg))
+      }
+
+      xhr.open('POST', `${backendUrl}/fotos/admin/upload`)
+      xhr.send(form)
+    })
   }
 
-  function iniciarSubida() {
+  async function iniciarSubida() {
     if (!lugarId) return
-    startTransition(async () => {
-      for (let i = 0; i < archivos.length; i++) {
-        if (archivos[i].estado !== 'pendiente') continue
-        setArchivos((prev) =>
-          prev.map((a, idx) => (idx === i ? { ...a, estado: 'subiendo' } : a)),
-        )
-        await subirConAction(archivos[i], i)
+
+    // Verify session before uploading — keeps auth enforced via Next.js
+    const authRes = await fetch('/api/admin/auth-check')
+    if (!authRes.ok) {
+      alert('Sesión expirada. Recarga la página.')
+      return
+    }
+
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+    if (!backendUrl) {
+      alert('Backend no configurado. Define NEXT_PUBLIC_BACKEND_URL.')
+      return
+    }
+
+    setSubiendo(true)
+    for (let i = 0; i < archivos.length; i++) {
+      if (archivos[i].estado !== 'pendiente') continue
+      setArchivos((prev) =>
+        prev.map((a, idx) => (idx === i ? { ...a, estado: 'subiendo' } : a)),
+      )
+      try {
+        await subirConXHR(archivos[i], i, backendUrl)
+      } catch {
+        // Error state is already set inside subirConXHR
       }
-      router.refresh()
-    })
+    }
+    setSubiendo(false)
+    router.refresh()
   }
 
   const pendientes = archivos.filter((a) => a.estado === 'pendiente').length
