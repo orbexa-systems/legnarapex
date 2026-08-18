@@ -178,7 +178,7 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
                     {foto.locations?.name ?? '—'}
                   </td>
                   <td className="px-4 py-3 text-legnar-gray">
-                    {new Date(foto.photo_date).toLocaleDateString('es-MX', {
+                    {new Date(foto.photo_date + 'T00:00:00').toLocaleDateString('es-MX', {
                       day: '2-digit',
                       month: 'short',
                       year: 'numeric',
