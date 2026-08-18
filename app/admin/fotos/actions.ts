@@ -17,7 +17,10 @@ export async function eliminarFoto(id: string): Promise<void> {
 
   if (apiUrl) {
     // Spring Boot deletes from both R2 and DB
-    const res = await fetch(`${apiUrl}/fotos/${id}`, { method: 'DELETE' })
+    const res = await fetch(`${apiUrl}/fotos/${id}`, {
+      method: 'DELETE',
+      headers: { 'X-Internal-Key': process.env.INTERNAL_API_KEY ?? '' },
+    })
     if (!res.ok && res.status !== 404) {
       throw new Error(`Error del backend al eliminar: ${res.status}`)
     }
