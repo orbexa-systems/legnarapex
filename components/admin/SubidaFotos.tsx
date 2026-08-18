@@ -1,8 +1,9 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import type { TrackLocation } from '@/lib/data/lugares'
+import { uploadFoto } from '@/lib/actions/uploadFoto'
 
 type ArchivoEstado = {
   file: File
@@ -18,11 +19,12 @@ interface SubidaFotosProps {
 export default function SubidaFotos({ lugares }: SubidaFotosProps) {
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
+  const [isPending, startTransition] = useTransition()
 
   const [lugarId, setLugarId] = useState('')
   const [archivos, setArchivos] = useState<ArchivoEstado[]>([])
   const [isDragging, setIsDragging] = useState(false)
-  const [subiendo, setSubiendo] = useState(false)
+  const subiendo = isPending
 
   function agregarArchivos(files: FileList | null) {
     if (!files) return
@@ -42,69 +44,37 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
     setArchivos((prev) => prev.filter((_, i) => i !== idx))
   }
 
-  function subirConXHR(archivo: ArchivoEstado, idx: number): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest()
-      const form = new FormData()
-      form.append('lugar_id', lugarId)
-      form.append('file', archivo.file)
+  async function subirConAction(archivo: ArchivoEstado, idx: number): Promise<void> {
+    const form = new FormData()
+    form.append('lugar_id', lugarId)
+    form.append('file', archivo.file)
 
-      xhr.upload.onprogress = (e) => {
-        if (e.lengthComputable) {
-          const pct = Math.round((e.loaded / e.total) * 100)
-          setArchivos((prev) =>
-            prev.map((a, i) => (i === idx ? { ...a, progreso: pct } : a)),
-          )
-        }
-      }
+    const result = await uploadFoto(form)
 
-      xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          setArchivos((prev) =>
-            prev.map((a, i) => (i === idx ? { ...a, estado: 'ok', progreso: 100 } : a)),
-          )
-          resolve()
-        } else {
-          const msg = `Error ${xhr.status}`
-          setArchivos((prev) =>
-            prev.map((a, i) => (i === idx ? { ...a, estado: 'error', error: msg } : a)),
-          )
-          reject(new Error(msg))
-        }
-      }
-
-      xhr.onerror = () => {
-        const msg = 'Error de red'
-        setArchivos((prev) =>
-          prev.map((a, i) => (i === idx ? { ...a, estado: 'error', error: msg } : a)),
-        )
-        reject(new Error(msg))
-      }
-
-      xhr.open('POST', '/api/admin/upload')
-      xhr.send(form)
-    })
+    if (result.ok) {
+      setArchivos((prev) =>
+        prev.map((a, i) => (i === idx ? { ...a, estado: 'ok', progreso: 100 } : a)),
+      )
+    } else {
+      const msg = result.error ?? 'Error desconocido'
+      setArchivos((prev) =>
+        prev.map((a, i) => (i === idx ? { ...a, estado: 'error', error: msg } : a)),
+      )
+    }
   }
 
-  async function iniciarSubida() {
+  function iniciarSubida() {
     if (!lugarId) return
-    setSubiendo(true)
-
-    // Upload files sequentially to avoid overwhelming the server
-    for (let i = 0; i < archivos.length; i++) {
-      if (archivos[i].estado !== 'pendiente') continue
-      setArchivos((prev) =>
-        prev.map((a, idx) => (idx === i ? { ...a, estado: 'subiendo' } : a)),
-      )
-      try {
-        await subirConXHR(archivos[i], i)
-      } catch {
-        // Error state is already set inside subirConXHR
+    startTransition(async () => {
+      for (let i = 0; i < archivos.length; i++) {
+        if (archivos[i].estado !== 'pendiente') continue
+        setArchivos((prev) =>
+          prev.map((a, idx) => (idx === i ? { ...a, estado: 'subiendo' } : a)),
+        )
+        await subirConAction(archivos[i], i)
       }
-    }
-
-    setSubiendo(false)
-    router.refresh() // Re-fetches Server Component data
+      router.refresh()
+    })
   }
 
   const pendientes = archivos.filter((a) => a.estado === 'pendiente').length
