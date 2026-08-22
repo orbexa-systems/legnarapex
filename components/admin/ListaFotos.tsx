@@ -7,6 +7,16 @@ import type { PhotoWithLocation } from '@/lib/data/fotos'
 
 const PAGE_SIZE = 25
 
+function buildPageWindow(current: number, total: number): (number | '…')[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
+  const pages: (number | '…')[] = [1]
+  if (current > 3) pages.push('…')
+  for (let p = Math.max(2, current - 1); p <= Math.min(total - 1, current + 1); p++) pages.push(p)
+  if (current < total - 2) pages.push('…')
+  pages.push(total)
+  return pages
+}
+
 function diasRestantes(expiresAt: string) {
   return Math.ceil((new Date(expiresAt).getTime() - Date.now()) / 86_400_000)
 }
@@ -208,33 +218,37 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between border-t border-legnar-border px-6 py-3">
+        <div className="flex items-center justify-between border-t border-legnar-border px-4 py-3 gap-2">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="rounded-md px-4 py-1.5 text-xs font-semibold text-legnar-gray transition-colors hover:text-legnar-white disabled:opacity-30"
+            className="shrink-0 rounded-md px-3 py-1.5 text-xs font-semibold text-legnar-gray transition-colors hover:text-legnar-white disabled:opacity-30"
           >
             ← Anterior
           </button>
-          <div className="flex items-center gap-1">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <button
-                key={p}
-                onClick={() => setPage(p)}
-                className={`h-7 w-7 rounded-md text-xs font-semibold transition-colors ${
-                  p === page
-                    ? 'bg-legnar-red text-white'
-                    : 'text-legnar-gray hover:text-legnar-white'
-                }`}
-              >
-                {p}
-              </button>
-            ))}
+          <div className="flex items-center gap-1 overflow-x-auto">
+            {buildPageWindow(page, totalPages).map((item, idx) =>
+              item === '…' ? (
+                <span key={`ellipsis-${idx}`} className="px-1 text-xs text-legnar-gray select-none">…</span>
+              ) : (
+                <button
+                  key={item}
+                  onClick={() => setPage(item as number)}
+                  className={`h-7 w-7 shrink-0 rounded-md text-xs font-semibold transition-colors ${
+                    item === page
+                      ? 'bg-legnar-red text-white'
+                      : 'text-legnar-gray hover:text-legnar-white'
+                  }`}
+                >
+                  {item}
+                </button>
+              )
+            )}
           </div>
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="rounded-md px-4 py-1.5 text-xs font-semibold text-legnar-gray transition-colors hover:text-legnar-white disabled:opacity-30"
+            className="shrink-0 rounded-md px-3 py-1.5 text-xs font-semibold text-legnar-gray transition-colors hover:text-legnar-white disabled:opacity-30"
           >
             Siguiente →
           </button>
