@@ -69,6 +69,7 @@ export async function getAvailableTimeSlots(location_id: string, date: string): 
     .eq('location_id', location_id)
     .eq('photo_date', date)
     .gt('expires_at', new Date().toISOString())
+    .limit(10000)
 
   if (error) throw error
   if (!data?.length) return []
