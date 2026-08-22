@@ -66,6 +66,12 @@ export default function GaleriaMuestra() {
         <p className="mt-6 text-center text-xs text-legnar-gray/50">
           Imágenes de muestra — las fotos reales se muestran con marca de agua
         </p>
+
+        <div className="mt-16 border-t border-legnar-border pt-8 text-center">
+          <p className="text-xs text-legnar-gray/40">
+            © {new Date().getFullYear()} Legnar Apex · Fotografía de motociclismo
+          </p>
+        </div>
       </div>
     </section>
   )

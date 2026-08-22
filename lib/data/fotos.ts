@@ -100,7 +100,8 @@ export async function getPhotosAdmin(): Promise<PhotoWithLocation[]> {
   const { data, error } = await adminSupabase
     .from('photos')
     .select(`${PUBLIC_FIELDS}, locations(name)`)
-    .order('uploaded_at', { ascending: false })
+    .order('photo_date', { ascending: true })
+    .order('photo_time', { ascending: true })
 
   if (error) throw error
   return (data ?? []) as unknown as PhotoWithLocation[]
