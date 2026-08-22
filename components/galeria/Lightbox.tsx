@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import type { Photo } from '@/lib/data/fotos'
+import ProtectedImage from './ProtectedImage'
 
 const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5625384283'
 
@@ -62,13 +62,11 @@ export default function Lightbox({ photo, onClose }: LightboxProps) {
               <div className="h-8 w-8 rounded-full border-2 border-legnar-red border-t-transparent animate-spin" />
             </div>
           )}
-          <Image
+          <ProtectedImage
             src={`/api/foto/${photo.code}`}
             alt={`Foto ${photo.code}`}
-            fill
             sizes="(max-width: 640px) 95vw, 768px"
             quality={85}
-            draggable={false}
             onLoad={() => setImageLoaded(true)}
             className={`photo-protected object-contain transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
