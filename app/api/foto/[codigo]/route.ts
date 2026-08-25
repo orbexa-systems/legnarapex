@@ -28,15 +28,15 @@ export async function GET(
     return new NextResponse(null, { status: r2Response.status })
   }
 
-  const buffer = await r2Response.arrayBuffer()
   const contentType = r2Response.headers.get('Content-Type') ?? 'image/jpeg'
 
-  return new NextResponse(buffer, {
+  return new NextResponse(r2Response.body, {
     headers: {
       'Content-Type': contentType,
       'Content-Disposition': 'inline',
       'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'no-store',
+      // photos are immutable (never updated, deleted after 8 days) — cache 7 days at edge
+      'Cache-Control': 'public, max-age=604800',
     },
   })
 }
