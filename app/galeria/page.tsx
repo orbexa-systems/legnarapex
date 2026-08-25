@@ -5,6 +5,8 @@ import { getPhotosPaginated, getAvailableTimeSlots } from '@/lib/data/fotos'
 import SearchFilters from '@/components/galeria/SearchFilters'
 import PhotoGrid from '@/components/galeria/PhotoGrid'
 
+export const dynamic = 'force-dynamic'
+
 type SearchParams = {
   lugar?: string
   fecha?: string
