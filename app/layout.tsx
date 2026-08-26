@@ -36,7 +36,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-legnar-black text-legnar-white antialiased">
         {children}
         <footer className="mt-auto border-t border-legnar-border py-3 text-center">
-          <span className="text-[11px] text-legnar-gray">v{version}</span>
+          <span className="text-[11px] text-legnar-gray">
+            © {new Date().getFullYear()} Legnar Apex · Todos los derechos reservados · v{version}
+          </span>
         </footer>
       </body>
     </html>
