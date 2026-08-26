@@ -63,27 +63,15 @@ export async function getPhotosPaginated(
 }
 
 export async function getAvailableTimeSlots(location_id: string, date: string): Promise<string[]> {
-  const { data, error } = await supabase
-    .from('photos')
-    .select('photo_time')
-    .eq('location_id', location_id)
-    .eq('photo_date', date)
-    .gt('expires_at', new Date().toISOString())
-    .limit(10000)
+  const { data, error } = await supabase.rpc('get_available_slots', {
+    p_location_id: location_id,
+    p_date: date,
+  })
 
   if (error) throw error
   if (!data?.length) return []
 
-  const pad = (n: number) => n.toString().padStart(2, '0')
-  const slotSet = new Set<string>()
-
-  for (const { photo_time } of data) {
-    const [h, m] = photo_time.split(':').map(Number)
-    const slotStart = Math.floor((h * 60 + m) / SLOT_MINUTES) * SLOT_MINUTES
-    slotSet.add(`${pad(Math.floor(slotStart / 60))}:${pad(slotStart % 60)}`)
-  }
-
-  return Array.from(slotSet).sort()
+  return (data as { slot: string }[]).map((r) => r.slot.slice(0, 5))
 }
 
 export async function getPhotosByCode(code: string): Promise<Photo[]> {
