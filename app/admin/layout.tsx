@@ -1,5 +1,6 @@
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import Sidebar from '@/components/admin/Sidebar'
+import { version } from '../../package.json'
 
 export const metadata = {
   title: 'Admin — Legnar Apex',
@@ -23,7 +24,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="flex min-h-screen bg-legnar-black">
-      <Sidebar userEmail={user.email ?? ''} />
+      <Sidebar userEmail={user.email ?? ''} version={version} />
       <main className="flex-1 overflow-auto">{children}</main>
     </div>
   )
