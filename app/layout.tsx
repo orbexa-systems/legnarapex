@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
 import { Bebas_Neue } from 'next/font/google'
 import './globals.css'
+import { version } from '../package.json'
 
 const geist = Geist({
   variable: '--font-sans',
@@ -34,6 +35,9 @@ export default function RootLayout({
     <html lang="es" className={`${geist.variable} ${bebasNeue.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-legnar-black text-legnar-white antialiased">
         {children}
+        <footer className="mt-auto border-t border-legnar-border py-3 text-center">
+          <span className="text-[11px] text-legnar-gray">v{version}</span>
+        </footer>
       </body>
     </html>
   )
