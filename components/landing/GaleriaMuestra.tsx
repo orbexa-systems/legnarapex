@@ -4,12 +4,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const PHOTOS = [
-  '/muestra/muestra-1.jpg',
-  '/muestra/muestra-2.jpg',
-  '/muestra/muestra-3.jpg',
-  '/muestra/muestra-4.jpg',
-  '/muestra/muestra-5.jpg',
-  '/muestra/muestra-6.jpg',
+  '/api/muestra/1',
+  '/api/muestra/2',
+  '/api/muestra/3',
+  '/api/muestra/4',
+  '/api/muestra/5',
+  '/api/muestra/6',
 ]
 
 const row1 = [...PHOTOS, ...PHOTOS]
@@ -47,12 +47,14 @@ export default function GaleriaMuestra() {
             <div
               key={`r1-${i}`}
               className="relative flex-shrink-0 h-72 w-48 overflow-hidden rounded-xl border border-legnar-border"
+              onContextMenu={(e) => e.preventDefault()}
             >
               <Image
                 src={src}
                 alt={`Foto de muestra ${(i % PHOTOS.length) + 1}`}
                 fill
-                className="object-cover"
+                className="object-cover pointer-events-none select-none"
+              draggable={false}
               />
             </div>
           ))}
@@ -65,12 +67,14 @@ export default function GaleriaMuestra() {
             <div
               key={`r2-${i}`}
               className="relative flex-shrink-0 h-72 w-48 overflow-hidden rounded-xl border border-legnar-border"
+              onContextMenu={(e) => e.preventDefault()}
             >
               <Image
                 src={src}
                 alt={`Foto de muestra ${(i % PHOTOS.length) + 1}`}
                 fill
-                className="object-cover"
+                className="object-cover pointer-events-none select-none"
+              draggable={false}
               />
             </div>
           ))}
