@@ -24,7 +24,7 @@ export default function PhotoGrid({
   queryParams,
   hasFilters,
 }: PhotoGridProps) {
-  const [activePhoto, setActivePhoto] = useState<Photo | null>(null)
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const { photos, isLoadingMore, hasMore, total, error, loadMore } = useInfinitePhotos(
     initialPhotos,
     initialHasMore,
@@ -48,8 +48,8 @@ export default function PhotoGrid({
 
       <div className="mx-auto max-w-6xl px-6 pb-4 pt-2">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
-          {photos.map((photo) => (
-            <PhotoCard key={photo.id} photo={photo} onOpen={setActivePhoto} />
+          {photos.map((photo, i) => (
+            <PhotoCard key={photo.id} photo={photo} onOpen={() => setActiveIndex(i)} />
           ))}
         </div>
 
@@ -70,8 +70,8 @@ export default function PhotoGrid({
         )}
       </div>
 
-      {activePhoto && (
-        <Lightbox photo={activePhoto} onClose={() => setActivePhoto(null)} />
+      {activeIndex !== null && (
+        <Lightbox photos={photos} initialIndex={activeIndex} onClose={() => setActiveIndex(null)} />
       )}
     </>
   )
