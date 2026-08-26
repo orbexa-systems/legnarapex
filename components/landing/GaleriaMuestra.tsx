@@ -46,7 +46,7 @@ export default function GaleriaMuestra() {
           {row1.map((src, i) => (
             <div
               key={`r1-${i}`}
-              className="relative flex-shrink-0 h-52 w-80 overflow-hidden rounded-xl border border-legnar-border"
+              className="relative flex-shrink-0 h-72 w-48 overflow-hidden rounded-xl border border-legnar-border"
             >
               <Image
                 src={src}
@@ -64,7 +64,7 @@ export default function GaleriaMuestra() {
           {row2.map((src, i) => (
             <div
               key={`r2-${i}`}
-              className="relative flex-shrink-0 h-52 w-80 overflow-hidden rounded-xl border border-legnar-border"
+              className="relative flex-shrink-0 h-72 w-48 overflow-hidden rounded-xl border border-legnar-border"
             >
               <Image
                 src={src}
