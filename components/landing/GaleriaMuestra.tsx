@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -13,34 +12,15 @@ const PHOTOS = [
   '/muestra/muestra-6.jpg',
 ]
 
-const INTERVAL = 5000
+const row1 = [...PHOTOS, ...PHOTOS]
+const row2 = [...[...PHOTOS].reverse(), ...[...PHOTOS].reverse()]
 
 export default function GaleriaMuestra() {
-  const [current, setCurrent] = useState(0)
-  const [paused, setPaused] = useState(false)
-
-  const prev = useCallback(
-    () => setCurrent((i) => (i === 0 ? PHOTOS.length - 1 : i - 1)),
-    [],
-  )
-  const next = useCallback(
-    () => setCurrent((i) => (i === PHOTOS.length - 1 ? 0 : i + 1)),
-    [],
-  )
-
-  // Restart the auto-advance timer whenever the current slide or paused state changes.
-  // This ensures a manual navigation always gives a full INTERVAL before auto-advance.
-  useEffect(() => {
-    if (paused) return
-    const id = setInterval(next, INTERVAL)
-    return () => clearInterval(id)
-  }, [paused, current, next])
-
   return (
-    <section className="py-24 px-6">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative py-24 overflow-hidden">
 
-        <div className="mb-12 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
+      <div className="mx-auto max-w-6xl px-6 mb-12">
+        <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
               Vista previa
@@ -59,67 +39,49 @@ export default function GaleriaMuestra() {
             Ver todas las fotos
           </Link>
         </div>
+      </div>
 
-        <div
-          className="relative aspect-[3/2] sm:aspect-[16/9] overflow-hidden rounded-2xl border border-legnar-border"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          {PHOTOS.map((src, i) => (
+      <div className="mb-4 overflow-hidden">
+        <div className="flex gap-4 w-max" style={{ animation: 'scroll-left 28s linear infinite' }}>
+          {row1.map((src, i) => (
             <div
-              key={src}
-              className={`absolute inset-0 transition-opacity duration-700 ${
-                i === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
+              key={`r1-${i}`}
+              className="relative flex-shrink-0 h-52 w-80 overflow-hidden rounded-xl border border-legnar-border"
             >
               <Image
                 src={src}
-                alt={`Foto de muestra ${i + 1}`}
+                alt={`Foto de muestra ${(i % PHOTOS.length) + 1}`}
                 fill
                 className="object-cover"
-                priority={i === 0}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
             </div>
           ))}
-
-          <button
-            onClick={prev}
-            aria-label="Foto anterior"
-            className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-3 text-white backdrop-blur-sm transition-all hover:bg-black/80 hover:scale-110"
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            onClick={next}
-            aria-label="Siguiente foto"
-            className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-3 text-white backdrop-blur-sm transition-all hover:bg-black/80 hover:scale-110"
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
-            {PHOTOS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                aria-label={`Ir a foto ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === current
-                    ? 'w-6 bg-legnar-red'
-                    : 'w-1.5 bg-white/40 hover:bg-white/70'
-                }`}
-              />
-            ))}
-          </div>
         </div>
+      </div>
 
-        <p className="mt-4 text-center text-xs text-legnar-gray/50">
+      <div className="overflow-hidden">
+        <div className="flex gap-4 w-max" style={{ animation: 'scroll-right 34s linear infinite' }}>
+          {row2.map((src, i) => (
+            <div
+              key={`r2-${i}`}
+              className="relative flex-shrink-0 h-52 w-80 overflow-hidden rounded-xl border border-legnar-border"
+            >
+              <Image
+                src={src}
+                alt={`Foto de muestra ${(i % PHOTOS.length) + 1}`}
+                fill
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-legnar-black to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-legnar-black to-transparent z-10" />
+
+      <div className="mx-auto max-w-6xl px-6">
+        <p className="mt-6 text-center text-xs text-legnar-gray/50">
           Imágenes de muestra — las fotos reales se muestran con marca de agua
         </p>
 
@@ -129,6 +91,17 @@ export default function GaleriaMuestra() {
           </p>
         </div>
       </div>
+
+      <style>{`
+        @keyframes scroll-left {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        @keyframes scroll-right {
+          from { transform: translateX(-50%); }
+          to   { transform: translateX(0); }
+        }
+      `}</style>
     </section>
   )
 }
