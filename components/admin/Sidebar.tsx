@@ -29,9 +29,10 @@ const NAV = [
 
 interface SidebarProps {
   userEmail: string
+  version: string
 }
 
-export default function Sidebar({ userEmail }: SidebarProps) {
+export default function Sidebar({ userEmail, version }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -96,6 +97,7 @@ export default function Sidebar({ userEmail }: SidebarProps) {
           </svg>
           Cerrar sesión
         </button>
+        <p className="mt-3 text-center text-[10px] text-legnar-border">v{version}</p>
       </div>
     </aside>
   )
