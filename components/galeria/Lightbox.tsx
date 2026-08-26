@@ -1,31 +1,66 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import type { Photo } from '@/lib/data/fotos'
 import ProtectedImage from './ProtectedImage'
 
 const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5625384283'
 
 interface LightboxProps {
-  photo: Photo
+  photos: Photo[]
+  initialIndex: number
   onClose: () => void
 }
 
-export default function Lightbox({ photo, onClose }: LightboxProps) {
+export default function Lightbox({ photos, initialIndex, onClose }: LightboxProps) {
+  const [index, setIndex] = useState(initialIndex)
   const [imageLoaded, setImageLoaded] = useState(false)
+  const touchStartX = useRef<number | null>(null)
+
+  const photo = photos[index]
+  const hasPrev = index > 0
+  const hasNext = index < photos.length - 1
+
+  const prev = useCallback(() => {
+    if (index > 0) {
+      setIndex((i) => i - 1)
+      setImageLoaded(false)
+    }
+  }, [index])
+
+  const next = useCallback(() => {
+    if (index < photos.length - 1) {
+      setIndex((i) => i + 1)
+      setImageLoaded(false)
+    }
+  }, [index, photos.length])
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight') next()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
+  }, [onClose, prev, next])
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
+
+  function onTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return
+    const delta = touchStartX.current - e.changedTouches[0].clientX
+    if (delta > 50) next()
+    else if (delta < -50) prev()
+    touchStartX.current = null
+  }
 
   const mensaje = encodeURIComponent(
     `Hola, vi mi foto con el código ${photo.code} en Legnarapex, me interesa comprarla 🏍️`,
@@ -42,6 +77,8 @@ export default function Lightbox({ photo, onClose }: LightboxProps) {
       <div
         className="relative z-10 flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-legnar-border bg-legnar-dark shadow-2xl h-[90vh]"
         onClick={(e) => e.stopPropagation()}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
       >
         <button
           onClick={onClose}
@@ -53,6 +90,10 @@ export default function Lightbox({ photo, onClose }: LightboxProps) {
           </svg>
         </button>
 
+        <div className="absolute left-3 top-3 z-20 rounded-md bg-black/60 px-2 py-1 text-xs text-legnar-gray backdrop-blur-sm tabular-nums">
+          {index + 1} / {photos.length}
+        </div>
+
         <div
           className="relative min-h-0 flex-1 overflow-hidden bg-legnar-black"
           onContextMenu={(e) => e.preventDefault()}
@@ -62,14 +103,38 @@ export default function Lightbox({ photo, onClose }: LightboxProps) {
               <div className="h-8 w-8 rounded-full border-2 border-legnar-red border-t-transparent animate-spin" />
             </div>
           )}
+
           <ProtectedImage
             src={`/api/foto/${photo.code}`}
             alt={`Foto ${photo.code}`}
             sizes="(max-width: 640px) 95vw, 768px"
-            quality={85}
             onLoad={() => setImageLoaded(true)}
             className={`photo-protected object-contain transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
+
+          {hasPrev && (
+            <button
+              onClick={prev}
+              aria-label="Foto anterior"
+              className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-2.5 text-white backdrop-blur-sm transition-all hover:bg-black/80 hover:scale-110"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+
+          {hasNext && (
+            <button
+              onClick={next}
+              aria-label="Siguiente foto"
+              className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-2.5 text-white backdrop-blur-sm transition-all hover:bg-black/80 hover:scale-110"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
         </div>
 
         <div className="flex flex-col items-center gap-4 border-t border-legnar-border px-6 py-5 sm:flex-row sm:justify-between">
