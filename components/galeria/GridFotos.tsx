@@ -8,7 +8,7 @@ import Lightbox from './Lightbox'
 const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5625384283'
 
 export default function GridFotos({ fotos }: { fotos: Photo[] }) {
-  const [fotoActiva, setFotoActiva] = useState<Photo | null>(null)
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   if (fotos.length === 0) {
     return <EstadoVacio />
@@ -25,14 +25,14 @@ export default function GridFotos({ fotos }: { fotos: Photo[] }) {
 
       <div className="mx-auto max-w-6xl px-6 pb-16 pt-2">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
-          {fotos.map((foto) => (
-            <PhotoCard key={foto.id} photo={foto} onOpen={setFotoActiva} />
+          {fotos.map((foto, i) => (
+            <PhotoCard key={foto.id} photo={foto} onOpen={() => setActiveIndex(i)} />
           ))}
         </div>
       </div>
 
-      {fotoActiva && (
-        <Lightbox photo={fotoActiva} onClose={() => setFotoActiva(null)} />
+      {activeIndex !== null && (
+        <Lightbox photos={fotos} initialIndex={activeIndex} onClose={() => setActiveIndex(null)} />
       )}
     </>
   )
