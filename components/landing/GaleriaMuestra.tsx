@@ -3,14 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const PHOTOS = [
-  '/api/muestra/1',
-  '/api/muestra/2',
-  '/api/muestra/3',
-  '/api/muestra/4',
-  '/api/muestra/5',
-  '/api/muestra/6',
-]
+const PHOTOS = Array.from({ length: 19 }, (_, i) => `/api/muestra/${i + 1}`)
 
 const row1 = [...PHOTOS, ...PHOTOS]
 const row2 = [...[...PHOTOS].reverse(), ...[...PHOTOS].reverse()]
