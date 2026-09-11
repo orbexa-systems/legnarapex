@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { readFile } from 'fs/promises'
 import path from 'path'
 
-const ALLOWED = new Set(['1', '2', '3', '4', '5', '6'])
+const ALLOWED = new Set(['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19'])
 
 export async function GET(
   _req: NextRequest,
