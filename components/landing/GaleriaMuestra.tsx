@@ -22,7 +22,7 @@ export default function GaleriaMuestra() {
               className="text-[clamp(2.5rem,6vw,4.5rem)] uppercase leading-none tracking-wide"
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              Galería de muestra
+              Apex Collection
             </h2>
           </div>
           <Link
