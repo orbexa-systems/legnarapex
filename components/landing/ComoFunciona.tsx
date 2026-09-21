@@ -4,7 +4,7 @@ const PASOS = [
     emoji: '📲',
     titulo: 'Escanea tu código QR que viene en la tarjeta',
     descripcion:
-      'Al terminar tu sesión, escanea el código QR de tu tarjeta. Entra directo al sitio y encuentra tus fotos.',
+      'Al obtener la tarjeta, podrás ingresar directamente a nuestra página oficial Legnar Apex, para contactarnos y buscar tus fotografías.',
   },
   {
     numero: '02',
