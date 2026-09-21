@@ -24,6 +24,9 @@ export default function GaleriaMuestra() {
             >
               Apex Collection
             </h2>
+            <p className="mt-3 text-sm text-legnar-gray">
+              Una selección de momentos que hablan por sí solos
+            </p>
           </div>
           <Link
             href="/galeria"
