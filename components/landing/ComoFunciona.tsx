@@ -2,9 +2,9 @@ const PASOS = [
   {
     numero: '01',
     emoji: '📲',
-    titulo: 'Escanea el QR en pista',
+    titulo: 'Escanea tu código QR que viene en la tarjeta',
     descripcion:
-      'Al terminar tu sesión, escanea el código QR del fotógrafo. Entra directo al sitio sin necesidad de tarjeta.',
+      'Al terminar tu sesión, escanea el código QR de tu tarjeta. Entra directo al sitio y encuentra tus fotos.',
   },
   {
     numero: '02',
