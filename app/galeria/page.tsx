@@ -98,7 +98,7 @@ export default async function GaleriaPage({
             Apex Collection
           </h1>
           <p className="mt-1 text-sm text-legnar-gray">
-            Filtra por lugar, fecha y franja horaria, o ingresa el código de tu tarjeta
+            Filtra por lugar, fecha y hora. Recuerda que estamos solamente los días domingos de 8 am a 1 pm.
           </p>
         </div>
       </div>
