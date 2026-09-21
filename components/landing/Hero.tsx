@@ -49,7 +49,7 @@ export default function Hero() {
           className="animate-fade-up-d1 text-[clamp(4rem,14vw,10rem)] font-display leading-none tracking-wide uppercase"
           style={{
             fontFamily: 'var(--font-display)',
-            background: 'linear-gradient(135deg, #F5F5F5 20%, #F48C06 60%, #C0392B 100%)',
+            background: 'linear-gradient(135deg, #F5F5F5 20%, #C0392B 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
