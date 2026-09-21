@@ -59,8 +59,8 @@ export default function Hero() {
         </h1>
 
         <p className="animate-fade-up-d2 max-w-xl text-lg leading-relaxed text-legnar-gray">
-          Tus mejores momentos en pista,{' '}
-          <span className="text-legnar-white font-semibold">inmortalizados.</span>
+          No es solo una foto,{' '}
+          <span className="text-legnar-white font-semibold">es tu momento en el Apex.</span>
         </p>
 
         <div className="animate-fade-up-d3 flex flex-col sm:flex-row gap-4 pt-2">
