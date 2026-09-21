@@ -27,7 +27,7 @@ export default function ComoFunciona() {
     <section className="py-24 px-6">
       <div className="mx-auto max-w-5xl">
         <div className="mb-16 text-center">
-          <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-red">
+          <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-widest text-legnar-red">
             Proceso
           </span>
           <h2
