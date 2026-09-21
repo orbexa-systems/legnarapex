@@ -63,8 +63,14 @@ export default async function GaleriaPage({
           </Link>
 
           <span
-            className="text-xl uppercase tracking-widest text-legnar-white"
-            style={{ fontFamily: 'var(--font-display)' }}
+            className="text-4xl uppercase tracking-widest"
+            style={{
+              fontFamily: 'var(--font-display)',
+              background: 'linear-gradient(135deg, #F5F5F5 20%, #C0392B 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
           >
             Legnar Apex
           </span>
