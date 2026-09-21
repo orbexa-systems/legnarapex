@@ -42,7 +42,7 @@ export default function Hero() {
 
       <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl">
         <span className="animate-fade-up inline-block rounded-full border border-legnar-gold/40 bg-legnar-gold/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-legnar-gold">
-          Fotografía de Motociclismo en Pista
+          Fotografía Deportiva de Alto Nivel
         </span>
 
         <h1

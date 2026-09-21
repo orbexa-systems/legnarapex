@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'Tus mejores momentos en pista, inmortalizados. Busca tu foto por lugar, fecha o código.',
   openGraph: {
     title: 'Legnar Apex',
-    description: 'Fotografía de motociclismo en pista. Busca tu foto.',
+    description: 'Fotografía deportiva de alto nivel. Busca tu foto.',
     siteName: 'Legnar Apex',
   },
 }
