@@ -95,7 +95,7 @@ export default async function GaleriaPage({
             className="text-[clamp(2rem,5vw,3.5rem)] uppercase leading-none tracking-wide text-legnar-white"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Tus fotos
+            Apex Collection
           </h1>
           <p className="mt-1 text-sm text-legnar-gray">
             Filtra por lugar, fecha y franja horaria, o ingresa el código de tu tarjeta
