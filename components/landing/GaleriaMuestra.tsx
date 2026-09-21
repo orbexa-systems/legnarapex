@@ -81,9 +81,6 @@ export default function GaleriaMuestra() {
       <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-legnar-black to-transparent z-10" />
 
       <div className="mx-auto max-w-6xl px-6">
-        <p className="mt-6 text-center text-xs text-legnar-gray/50">
-          Imágenes de muestra — las fotos reales se muestran con marca de agua
-        </p>
 
         <div className="mt-16 border-t border-legnar-border pt-8 text-center">
           <p className="text-xs text-legnar-gray/40">
