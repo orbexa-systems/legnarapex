@@ -95,9 +95,10 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={red.nombre}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-legnar-border bg-legnar-dark/60 text-legnar-gray backdrop-blur transition-all duration-300 hover:border-legnar-gold/40 hover:text-legnar-gold"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white backdrop-blur transition-all duration-300 hover:border-white hover:bg-white/20 hover:shadow-[0_0_16px_rgba(255,255,255,0.4)]"
+                style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.35))' }}
               >
-                <span className="h-4 w-4">{red.icon}</span>
+                <span className="h-6 w-6">{red.icon}</span>
               </a>
             ))}
           </div>
