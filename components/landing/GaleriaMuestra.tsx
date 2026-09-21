@@ -16,7 +16,7 @@ export default function GaleriaMuestra() {
         <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-red">
-              Vista previa
+              Apex Collection
             </span>
             <h2
               className="text-[clamp(2.5rem,6vw,4.5rem)] uppercase leading-none tracking-wide"
