@@ -90,7 +90,7 @@ export default function FiltrosBusqueda({ lugares }: { lugares: TrackLocation[] 
               />
               <button
                 type="submit"
-                className="rounded-lg bg-legnar-red px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-legnar-fire"
+                className="rounded-lg bg-legnar-red px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-800"
               >
                 Buscar
               </button>

@@ -148,7 +148,7 @@ export default function DatePicker({ value, onChange }: DatePickerProps) {
                       ${isSelected
                         ? 'bg-legnar-red text-white'
                         : isToday
-                        ? 'border border-legnar-gold text-legnar-gold hover:bg-legnar-gold/10'
+                        ? 'border border-legnar-red text-legnar-red hover:bg-legnar-red/10'
                         : 'text-legnar-white hover:bg-legnar-border/60'
                       }`}
                   >

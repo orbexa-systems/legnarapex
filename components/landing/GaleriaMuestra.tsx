@@ -15,7 +15,7 @@ export default function GaleriaMuestra() {
       <div className="mx-auto max-w-6xl px-6 mb-12">
         <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
-            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
+            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-red">
               Vista previa
             </span>
             <h2

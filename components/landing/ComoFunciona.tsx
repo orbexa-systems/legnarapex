@@ -27,7 +27,7 @@ export default function ComoFunciona() {
     <section className="py-24 px-6">
       <div className="mx-auto max-w-5xl">
         <div className="mb-16 text-center">
-          <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
+          <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-red">
             Proceso
           </span>
           <h2
@@ -58,7 +58,7 @@ export default function ComoFunciona() {
                 <p className="text-sm leading-relaxed text-legnar-gray">{paso.descripcion}</p>
               </div>
 
-              <div className="absolute bottom-0 left-8 right-8 h-px scale-x-0 bg-gradient-to-r from-legnar-red to-legnar-fire transition-transform duration-300 group-hover:scale-x-100 rounded-full" />
+              <div className="absolute bottom-0 left-8 right-8 h-px scale-x-0 bg-gradient-to-r from-legnar-red to-red-800 transition-transform duration-300 group-hover:scale-x-100 rounded-full" />
             </div>
           ))}
         </div>

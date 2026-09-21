@@ -37,11 +37,11 @@ export default function Hero() {
       <div
         aria-hidden
         className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, #C0392B, #F48C06, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, #C0392B, #C0392B, transparent)' }}
       />
 
       <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl">
-        <span className="animate-fade-up inline-block rounded-full border border-legnar-gold/40 bg-legnar-gold/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-legnar-gold">
+        <span className="animate-fade-up inline-block rounded-full border border-legnar-red/40 bg-legnar-red/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-legnar-red">
           Fotografía Deportiva de Alto Nivel
         </span>
 
@@ -66,7 +66,7 @@ export default function Hero() {
         <div className="animate-fade-up-d3 flex flex-col sm:flex-row gap-4 pt-2">
           <Link
             href="/galeria"
-            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-legnar-red px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-legnar-fire hover:shadow-[0_0_24px_#E85D0466]"
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-legnar-red px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-red-800 hover:shadow-[0_0_24px_#C0392B66]"
           >
             Busca tu foto
             <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

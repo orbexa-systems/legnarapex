@@ -250,7 +250,7 @@ export default function SubidaFotos({ lugares }: SubidaFotosProps) {
               <button
                 onClick={iniciarSubida}
                 disabled={!lugarId || subiendo}
-                className="rounded-full bg-legnar-red px-5 py-2 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-legnar-fire disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-full bg-legnar-red px-5 py-2 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {subiendo ? 'Subiendo...' : `Subir ${pendientes} foto${pendientes > 1 ? 's' : ''}`}
               </button>

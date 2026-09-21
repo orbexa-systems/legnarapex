@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={cargando}
-              className="mt-1 rounded-full bg-legnar-red py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:bg-legnar-fire disabled:opacity-50"
+              className="mt-1 rounded-full bg-legnar-red py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:bg-red-800 disabled:opacity-50"
             >
               {cargando ? 'Entrando...' : 'Entrar'}
             </button>
