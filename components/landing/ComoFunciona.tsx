@@ -11,7 +11,7 @@ const PASOS = [
     emoji: '🔍',
     titulo: 'Busca tu foto',
     descripcion:
-      'Filtra por lugar, fecha y hora, o ingresa directamente tu código. Visualiza las fotos con marca de agua.',
+      'Al seleccionar "Buscar tu foto" podrás ingresar a un apartado de filtros donde deberás ingresar el lugar, la fecha y la hora que se te tomó la fotografía. Podrás visualizar nuestra galería semanal con la marca de agua.',
   },
   {
     numero: '03',
