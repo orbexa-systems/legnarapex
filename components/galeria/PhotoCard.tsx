@@ -43,7 +43,7 @@ export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
       </div>
 
       <div className="flex items-center justify-between px-3 py-2.5">
-        <span className="font-mono text-xs font-semibold tracking-wider text-legnar-gold">
+        <span className="font-mono text-xs font-semibold tracking-wider text-legnar-red">
           {photo.code}
         </span>
         <span className="text-[10px] text-legnar-gray">
