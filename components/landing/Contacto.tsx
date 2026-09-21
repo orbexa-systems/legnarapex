@@ -78,7 +78,7 @@ export default function Contacto() {
 
       <div className="mx-auto mt-20 max-w-5xl border-t border-legnar-border pt-8 text-center">
         <p className="text-xs text-legnar-gray/40">
-          © {new Date().getFullYear()} Legnar Apex · Fotografía de motociclismo
+          © {new Date().getFullYear()} Legnar Apex · Fotografía Deportiva de Alto Nivel
         </p>
       </div>
     </section>
