@@ -30,32 +30,34 @@ export default function Hero() {
         className="animate-fire-pulse pointer-events-none absolute inset-0 rounded-full"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 50% 55%, #E6000022 0%, #E6000011 40%, transparent 70%)',
+            'radial-gradient(ellipse 80% 60% at 50% 55%, #FF000022 0%, #FF000011 40%, transparent 70%)',
         }}
       />
 
       <div
         aria-hidden
         className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, #E60000, #E60000, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, #FF0000, #FF0000, transparent)' }}
       />
 
       <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl">
-        <span className="animate-fade-up inline-block rounded-full border border-legnar-red/40 bg-legnar-red/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-legnar-red">
+        <span className="animate-fade-up inline-block rounded-full border border-legnar-red/40 bg-legnar-red/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-legnar-white">
           Fotografía Deportiva de Alto Nivel
         </span>
 
         <h1
           className="animate-fade-up-d1 text-[clamp(4rem,14vw,10rem)] font-display leading-none tracking-wide uppercase"
-          style={{
-            fontFamily: 'var(--font-display)',
-            background: 'linear-gradient(135deg, #F5F5F5 20%, #E60000 100%)',
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          <span style={{
+            background: 'linear-gradient(135deg, #F5F5F5 20%, #FF0000 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
-          }}
-        >
-          Legnar Apex
+            display: 'inline-block',
+          }}>
+            Legnar Apex
+          </span>
         </h1>
 
         <p className="animate-fade-up-d2 max-w-xl text-lg leading-relaxed text-legnar-gray">
@@ -66,7 +68,8 @@ export default function Hero() {
         <div className="animate-fade-up-d3 flex flex-col sm:flex-row gap-4 pt-2">
           <Link
             href="/galeria"
-            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-legnar-red px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-red-800 hover:shadow-[0_0_24px_#E6000066]"
+            className="btn-red group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:shadow-[0_0_24px_#FF000066]"
+            style={{ backgroundColor: '#FF0000' }}
           >
             Busca tu foto
             <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +81,7 @@ export default function Hero() {
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-legnar-border bg-legnar-dark/60 px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-legnar-white backdrop-blur transition-all duration-300 hover:border-green-500/50 hover:bg-green-500/10 hover:text-green-400"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-legnar-red/40 bg-legnar-dark/60 px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-legnar-white backdrop-blur transition-all duration-300 hover:border-legnar-red hover:bg-legnar-red/10 hover:text-legnar-red"
           >
             <WhatsAppIcon />
             Contactar

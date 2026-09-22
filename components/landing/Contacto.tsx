@@ -40,8 +40,11 @@ export default function Contacto() {
         >
           ¿Ya encontraste tu foto?
         </h2>
+        <p className="mb-4 text-legnar-gray">
+          Al encontrar la foto de tu agrado, debes seleccionar &quot;me interesa esta foto&quot; donde nos podrás contactar directamente para poder obtener tu foto edición Apex!
+        </p>
         <p className="mb-10 text-legnar-gray">
-          Al encontrar la foto de tu agrado, debes seleccionar &quot;me interesa esta foto&quot; donde nos podrás contactar directamente para poder obtener tu foto edición Apex! Nosotros editamos del RAW original y te la mandamos lista en tan solo unos minutos.
+          Nosotros editamos del RAW original y te la mandamos lista en tan solo unos minutos.
         </p>
 
         <a

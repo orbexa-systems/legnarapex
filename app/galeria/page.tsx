@@ -64,15 +64,10 @@ export default async function GaleriaPage({
 
           <span
             className="text-4xl uppercase tracking-widest"
-            style={{
-              fontFamily: 'var(--font-display)',
-              background: 'linear-gradient(135deg, #F5F5F5 20%, #E60000 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
+            style={{ fontFamily: 'var(--font-display)' }}
           >
-            Legnar Apex
+            <span className="text-legnar-white">Legnar </span>
+            <span className="text-legnar-red">Apex</span>
           </span>
 
           <a

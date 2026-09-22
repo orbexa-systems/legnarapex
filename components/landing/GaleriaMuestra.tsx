@@ -30,7 +30,7 @@ export default function GaleriaMuestra() {
           </div>
           <Link
             href="/galeria"
-            className="shrink-0 rounded-full border border-legnar-red bg-legnar-red/10 px-6 py-2.5 text-sm font-semibold uppercase tracking-widest text-legnar-white transition-all hover:bg-legnar-red hover:shadow-[0_0_20px_#E6000066]"
+            className="shrink-0 rounded-full border border-legnar-red bg-legnar-red/10 px-6 py-2.5 text-sm font-semibold uppercase tracking-widest text-legnar-white transition-all hover:bg-legnar-red hover:shadow-[0_0_20px_#FF000066]"
           >
             Ver todas las fotos
           </Link>

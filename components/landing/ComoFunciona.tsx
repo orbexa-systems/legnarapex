@@ -18,7 +18,7 @@ const PASOS = [
     emoji: '💬',
     titulo: 'Contáctanos por WhatsApp',
     descripcion:
-      'Manda el código de tu foto. Nosotros la editamos del RAW original y te la enviamos lista en minutos.',
+      'Al encontrar la foto de tu agrado, debes seleccionar "me interesa esta foto" donde nos podrás contactar directamente para poder obtener tu foto edición Apex! Nosotros editamos del RAW original y te la mandamos lista en tan solo unos minutos.',
   },
 ]
 
@@ -42,7 +42,7 @@ export default function ComoFunciona() {
           {PASOS.map((paso) => (
             <div
               key={paso.numero}
-              className="group relative flex flex-col gap-5 rounded-2xl border border-legnar-border bg-legnar-dark p-8 transition-all duration-300 hover:border-legnar-red/40 hover:shadow-[0_0_32px_#E6000018]"
+              className="group relative flex flex-col gap-5 rounded-2xl border border-legnar-border bg-legnar-dark p-8 transition-all duration-300 hover:border-legnar-red/40 hover:shadow-[0_0_32px_#FF000018]"
             >
               <span
                 className="absolute right-6 top-4 text-6xl font-bold leading-none text-legnar-border select-none transition-colors duration-300 group-hover:text-legnar-red/20"

@@ -66,7 +66,7 @@ export default function SearchFilters({ locations, slots }: SearchFiltersProps) 
       <div className="mx-auto max-w-6xl px-6 py-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:flex-wrap sm:gap-4">
 
-          <div className="flex flex-col gap-1.5 sm:w-48">
+          <div className="flex flex-col gap-1.5 sm:w-72">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
               Lugar
             </label>
@@ -84,7 +84,7 @@ export default function SearchFilters({ locations, slots }: SearchFiltersProps) 
             </select>
           </div>
 
-          <div className="flex flex-col gap-1.5 sm:w-52">
+          <div className="flex flex-col gap-1.5 sm:w-72">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
               Fecha
             </label>
