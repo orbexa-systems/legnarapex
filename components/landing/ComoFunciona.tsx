@@ -42,7 +42,7 @@ export default function ComoFunciona() {
           {PASOS.map((paso) => (
             <div
               key={paso.numero}
-              className="group relative flex flex-col gap-5 rounded-2xl border border-legnar-border bg-legnar-dark p-8 transition-all duration-300 hover:border-legnar-red/40 hover:shadow-[0_0_32px_#C0392B18]"
+              className="group relative flex flex-col gap-5 rounded-2xl border border-legnar-border bg-legnar-dark p-8 transition-all duration-300 hover:border-legnar-red/40 hover:shadow-[0_0_32px_#E6000018]"
             >
               <span
                 className="absolute right-6 top-4 text-6xl font-bold leading-none text-legnar-border select-none transition-colors duration-300 group-hover:text-legnar-red/20"

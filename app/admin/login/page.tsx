@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
         className="pointer-events-none fixed inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 40% at 50% 50%, #C0392B14 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 40% at 50% 50%, #E6000014 0%, transparent 70%)',
         }}
       />
 

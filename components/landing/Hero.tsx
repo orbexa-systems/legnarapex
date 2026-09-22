@@ -30,14 +30,14 @@ export default function Hero() {
         className="animate-fire-pulse pointer-events-none absolute inset-0 rounded-full"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 50% 55%, #C0392B22 0%, #C0392B11 40%, transparent 70%)',
+            'radial-gradient(ellipse 80% 60% at 50% 55%, #E6000022 0%, #E6000011 40%, transparent 70%)',
         }}
       />
 
       <div
         aria-hidden
         className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, #C0392B, #C0392B, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, #E60000, #E60000, transparent)' }}
       />
 
       <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl">
@@ -49,7 +49,7 @@ export default function Hero() {
           className="animate-fade-up-d1 text-[clamp(4rem,14vw,10rem)] font-display leading-none tracking-wide uppercase"
           style={{
             fontFamily: 'var(--font-display)',
-            background: 'linear-gradient(135deg, #F5F5F5 20%, #C0392B 100%)',
+            background: 'linear-gradient(135deg, #F5F5F5 20%, #E60000 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
@@ -66,7 +66,7 @@ export default function Hero() {
         <div className="animate-fade-up-d3 flex flex-col sm:flex-row gap-4 pt-2">
           <Link
             href="/galeria"
-            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-legnar-red px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-red-800 hover:shadow-[0_0_24px_#C0392B66]"
+            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-legnar-red px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-red-800 hover:shadow-[0_0_24px_#E6000066]"
           >
             Busca tu foto
             <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
