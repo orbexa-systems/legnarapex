@@ -181,7 +181,7 @@ export default function ListaFotos({ fotos }: { fotos: PhotoWithLocation[] }) {
                       className="h-4 w-4 cursor-pointer accent-legnar-red"
                     />
                   </td>
-                  <td className="px-4 py-3 font-mono font-semibold tracking-wider text-legnar-gold">
+                  <td className="px-4 py-3 font-mono font-semibold tracking-wider text-legnar-red">
                     {foto.code}
                   </td>
                   <td className="px-4 py-3 text-legnar-white">

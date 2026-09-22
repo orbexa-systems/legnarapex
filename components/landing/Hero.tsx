@@ -30,7 +30,7 @@ export default function Hero() {
         className="animate-fire-pulse pointer-events-none absolute inset-0 rounded-full"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 50% 55%, #C0392B22 0%, #E85D0411 40%, transparent 70%)',
+            'radial-gradient(ellipse 80% 60% at 50% 55%, #C0392B22 0%, #C0392B11 40%, transparent 70%)',
         }}
       />
 
