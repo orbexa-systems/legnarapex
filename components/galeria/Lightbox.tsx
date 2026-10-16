@@ -31,6 +31,13 @@ export default function Lightbox({ photos, initialIndex, onClose, hasMore = fals
     prevLength.current = photos.length
   }, [photos.length])
 
+  // Silently prefetch next page when 3 photos from the end so metadata is ready
+  useEffect(() => {
+    if (hasMore && loadMore && index >= photos.length - 3) {
+      loadMore()
+    }
+  }, [index, photos.length, hasMore, loadMore])
+
   const photo = photos[index]
   const hasPrev = photos.length > 1
   const hasNext = photos.length > 1
