@@ -10,33 +10,12 @@ interface LightboxProps {
   photos: Photo[]
   initialIndex: number
   onClose: () => void
-  hasMore?: boolean
-  loadMore?: () => Promise<void>
 }
 
-export default function Lightbox({ photos, initialIndex, onClose, hasMore = false, loadMore }: LightboxProps) {
+export default function Lightbox({ photos, initialIndex, onClose }: LightboxProps) {
   const [index, setIndex] = useState(initialIndex)
   const [imageLoaded, setImageLoaded] = useState(false)
   const touchStartX = useRef<number | null>(null)
-  const pendingAdvance = useRef(false)
-  const prevLength = useRef(photos.length)
-
-  // When a loadMore resolves and new photos arrive, advance to the first new photo
-  useEffect(() => {
-    if (pendingAdvance.current && photos.length > prevLength.current) {
-      setIndex(prevLength.current)
-      setImageLoaded(false)
-      pendingAdvance.current = false
-    }
-    prevLength.current = photos.length
-  }, [photos.length])
-
-  // Silently prefetch next page when 3 photos from the end so metadata is ready
-  useEffect(() => {
-    if (hasMore && loadMore && index >= photos.length - 3) {
-      loadMore()
-    }
-  }, [index, photos.length, hasMore, loadMore])
 
   const photo = photos[index]
   const hasPrev = photos.length > 1
@@ -48,15 +27,9 @@ export default function Lightbox({ photos, initialIndex, onClose, hasMore = fals
   }, [photos.length])
 
   const next = useCallback(() => {
-    const isLast = index === photos.length - 1
-    if (isLast && hasMore && loadMore) {
-      pendingAdvance.current = true
-      loadMore()
-    } else {
-      setIndex((i) => (i + 1) % photos.length)
-      setImageLoaded(false)
-    }
-  }, [index, photos.length, hasMore, loadMore])
+    setIndex((i) => (i + 1) % photos.length)
+    setImageLoaded(false)
+  }, [photos.length])
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {

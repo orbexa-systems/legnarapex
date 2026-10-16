@@ -51,6 +51,12 @@ function buildPhotosQuery(params: PhotosByCriteriaParams) {
   return query
 }
 
+export async function getAllPhotos(params: PhotosByCriteriaParams): Promise<Photo[]> {
+  const { data, error } = await buildPhotosQuery(params)
+  if (error) throw error
+  return data ?? []
+}
+
 export async function getPhotosPaginated(
   params: PhotosByCriteriaParams,
   page: number,
