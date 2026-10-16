@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { Photo, PhotosByCriteriaParams } from '@/lib/data/fotos'
 import { useInfinitePhotos } from '@/hooks/useInfinitePhotos'
 import PhotoCard from './PhotoCard'
@@ -25,12 +25,40 @@ export default function PhotoGrid({
   hasFilters,
 }: PhotoGridProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const [lightboxPhotos, setLightboxPhotos] = useState<Photo[]>([])
+  const fetchedParams = useRef<string>('')
+
   const { photos, isLoadingMore, hasMore, total, error, loadMore } = useInfinitePhotos(
     initialPhotos,
     initialHasMore,
     initialTotal,
     queryParams,
   )
+
+  // When lightbox opens, fetch all photos for this query in the background
+  useEffect(() => {
+    if (activeIndex === null) return
+    const paramsKey = JSON.stringify(queryParams)
+
+    // Start with currently loaded photos so lightbox is immediately usable
+    setLightboxPhotos(photos)
+
+    // Skip if we already fetched for these exact params
+    if (fetchedParams.current === paramsKey) return
+    fetchedParams.current = paramsKey
+
+    const qs = new URLSearchParams()
+    if (queryParams.location_id) qs.set('location_id', queryParams.location_id)
+    if (queryParams.date)        qs.set('date', queryParams.date)
+    if (queryParams.code)        qs.set('code', queryParams.code)
+    if (queryParams.time_slot)   qs.set('time_slot', queryParams.time_slot)
+
+    fetch(`/api/galeria/photos/all?${qs}`)
+      .then(r => r.json())
+      .then(data => { if (data.photos) setLightboxPhotos(data.photos) })
+      .catch(() => {})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex])
 
   if (!hasFilters) return <EmptyPrompt />
   if (photos.length === 0) return <EmptyResults />
@@ -70,13 +98,11 @@ export default function PhotoGrid({
         )}
       </div>
 
-      {activeIndex !== null && (
+      {activeIndex !== null && lightboxPhotos.length > 0 && (
         <Lightbox
-          photos={photos}
-          initialIndex={activeIndex}
+          photos={lightboxPhotos}
+          initialIndex={Math.min(activeIndex, lightboxPhotos.length - 1)}
           onClose={() => setActiveIndex(null)}
-          hasMore={hasMore}
-          loadMore={loadMore}
         />
       )}
     </>
