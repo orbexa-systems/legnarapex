@@ -30,43 +30,46 @@ export default function Hero() {
         className="animate-fire-pulse pointer-events-none absolute inset-0 rounded-full"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 50% 55%, #C0392B22 0%, #E85D0411 40%, transparent 70%)',
+            'radial-gradient(ellipse 80% 60% at 50% 55%, #FF000022 0%, #FF000011 40%, transparent 70%)',
         }}
       />
 
       <div
         aria-hidden
         className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, #C0392B, #F48C06, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, #FF0000, #FF0000, transparent)' }}
       />
 
       <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl">
-        <span className="animate-fade-up inline-block rounded-full border border-legnar-gold/40 bg-legnar-gold/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-legnar-gold">
-          Fotografía de Motociclismo en Pista
+        <span className="animate-fade-up inline-block rounded-full border border-legnar-red/40 bg-legnar-red/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-legnar-white">
+          Fotografía Deportiva de Alto Nivel
         </span>
 
         <h1
           className="animate-fade-up-d1 text-[clamp(4rem,14vw,10rem)] font-display leading-none tracking-wide uppercase"
-          style={{
-            fontFamily: 'var(--font-display)',
-            background: 'linear-gradient(135deg, #F5F5F5 20%, #F48C06 60%, #C0392B 100%)',
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          <span style={{
+            background: 'linear-gradient(135deg, #F5F5F5 20%, #FF0000 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
-          }}
-        >
-          Legnar Apex
+            display: 'inline-block',
+          }}>
+            Legnar Apex
+          </span>
         </h1>
 
         <p className="animate-fade-up-d2 max-w-xl text-lg leading-relaxed text-legnar-gray">
-          Tus mejores momentos en pista,{' '}
-          <span className="text-legnar-white font-semibold">inmortalizados.</span>
+          No es solo una foto,{' '}
+          <span className="text-legnar-white font-semibold">es tu momento en el Apex.</span>
         </p>
 
         <div className="animate-fade-up-d3 flex flex-col sm:flex-row gap-4 pt-2">
           <Link
             href="/galeria"
-            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-legnar-red px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-legnar-fire hover:shadow-[0_0_24px_#E85D0466]"
+            className="btn-red group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:shadow-[0_0_24px_#FF000066]"
+            style={{ backgroundColor: '#FF0000' }}
           >
             Busca tu foto
             <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +81,7 @@ export default function Hero() {
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-legnar-border bg-legnar-dark/60 px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-legnar-white backdrop-blur transition-all duration-300 hover:border-green-500/50 hover:bg-green-500/10 hover:text-green-400"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-legnar-red/40 bg-legnar-dark/60 px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-legnar-white backdrop-blur transition-all duration-300 hover:border-legnar-red hover:bg-legnar-red/10 hover:text-legnar-red"
           >
             <WhatsAppIcon />
             Contactar
@@ -95,9 +98,10 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={red.nombre}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-legnar-border bg-legnar-dark/60 text-legnar-gray backdrop-blur transition-all duration-300 hover:border-legnar-gold/40 hover:text-legnar-gold"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white backdrop-blur transition-all duration-300 hover:border-white hover:bg-white/20 hover:shadow-[0_0_16px_rgba(255,255,255,0.4)]"
+                style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.35))' }}
               >
-                <span className="h-4 w-4">{red.icon}</span>
+                <span className="h-6 w-6">{red.icon}</span>
               </a>
             ))}
           </div>

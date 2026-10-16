@@ -15,19 +15,22 @@ export default function GaleriaMuestra() {
       <div className="mx-auto max-w-6xl px-6 mb-12">
         <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
-            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
-              Vista previa
+            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-red">
+              Apex Collection
             </span>
             <h2
               className="text-[clamp(2.5rem,6vw,4.5rem)] uppercase leading-none tracking-wide"
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              Galería de muestra
+              Apex Collection
             </h2>
+            <p className="mt-3 text-sm text-legnar-gray">
+              Una selección de momentos que hablan por sí solos
+            </p>
           </div>
           <Link
             href="/galeria"
-            className="shrink-0 rounded-full border border-legnar-red bg-legnar-red/10 px-6 py-2.5 text-sm font-semibold uppercase tracking-widest text-legnar-white transition-all hover:bg-legnar-red hover:shadow-[0_0_20px_#C0392B66]"
+            className="shrink-0 rounded-full border border-legnar-red bg-legnar-red/10 px-6 py-2.5 text-sm font-semibold uppercase tracking-widest text-legnar-white transition-all hover:bg-legnar-red hover:shadow-[0_0_20px_#FF000066]"
           >
             Ver todas las fotos
           </Link>
@@ -78,13 +81,10 @@ export default function GaleriaMuestra() {
       <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-legnar-black to-transparent z-10" />
 
       <div className="mx-auto max-w-6xl px-6">
-        <p className="mt-6 text-center text-xs text-legnar-gray/50">
-          Imágenes de muestra — las fotos reales se muestran con marca de agua
-        </p>
 
         <div className="mt-16 border-t border-legnar-border pt-8 text-center">
           <p className="text-xs text-legnar-gray/40">
-            © {new Date().getFullYear()} Legnar Apex · Fotografía de motociclismo
+            © {new Date().getFullYear()} Legnar Apex · Fotografía Deportiva de Alto Nivel
           </p>
         </div>
       </div>

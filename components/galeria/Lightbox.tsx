@@ -140,7 +140,7 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
         <div className="flex flex-col items-center gap-4 border-t border-legnar-border px-6 py-5 sm:flex-row sm:justify-between">
           <div className="text-center sm:text-left">
             <p className="text-[10px] uppercase tracking-widest text-legnar-gray">Código de foto</p>
-            <p className="font-mono text-2xl font-bold tracking-widest text-legnar-gold">
+            <p className="font-mono text-2xl font-bold tracking-widest text-legnar-red">
               {photo.code}
             </p>
             <p className="mt-0.5 text-xs text-legnar-gray">

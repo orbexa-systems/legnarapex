@@ -31,7 +31,7 @@ export default function Contacto() {
       />
 
       <div className="mx-auto max-w-3xl text-center">
-        <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
+        <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-red">
           Contacto
         </span>
         <h2
@@ -40,8 +40,11 @@ export default function Contacto() {
         >
           ¿Ya encontraste tu foto?
         </h2>
+        <p className="mb-4 text-legnar-gray">
+          Al encontrar la foto de tu agrado, debes seleccionar &quot;me interesa esta foto&quot; donde nos podrás contactar directamente para poder obtener tu foto edición Apex!
+        </p>
         <p className="mb-10 text-legnar-gray">
-          Mándanos el código por WhatsApp. Editamos el RAW original y te lo enviamos directo.
+          Nosotros editamos del RAW original y te la mandamos lista en tan solo unos minutos.
         </p>
 
         <a
@@ -66,7 +69,7 @@ export default function Contacto() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${red.nombre} ${red.handle}`}
-                className="group flex flex-col items-center gap-1.5 rounded-xl border border-legnar-border bg-legnar-dark p-4 text-legnar-gray transition-all duration-300 hover:border-legnar-gold/40 hover:text-legnar-gold"
+                className="group flex flex-col items-center gap-1.5 rounded-xl border border-legnar-border bg-legnar-dark p-4 text-legnar-gray transition-all duration-300 hover:border-legnar-red/40 hover:text-legnar-red"
               >
                 <span className="h-5 w-5">{red.icon}</span>
                 <span className="text-[10px] tracking-widest">{red.handle}</span>
@@ -78,7 +81,7 @@ export default function Contacto() {
 
       <div className="mx-auto mt-20 max-w-5xl border-t border-legnar-border pt-8 text-center">
         <p className="text-xs text-legnar-gray/40">
-          © {new Date().getFullYear()} Legnar Apex · Fotografía de motociclismo
+          © {new Date().getFullYear()} Legnar Apex · Fotografía Deportiva de Alto Nivel
         </p>
       </div>
     </section>

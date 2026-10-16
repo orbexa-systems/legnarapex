@@ -61,7 +61,7 @@ export default function GestionLugares({ lugares }: GestionLugaresProps) {
           <button
             type="submit"
             disabled={pending || !nuevoNombre.trim()}
-            className="rounded-full bg-legnar-red px-5 py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-legnar-fire disabled:opacity-40"
+            className="rounded-full bg-legnar-red px-5 py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-red-800 disabled:opacity-40"
           >
             Guardar
           </button>

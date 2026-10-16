@@ -16,12 +16,12 @@ const bebasNeue = Bebas_Neue({
 })
 
 export const metadata: Metadata = {
-  title: 'Legnar Apex — Fotografía de Motociclismo',
+  title: 'Legnar Apex — Fotografía Deportiva de Alto Nivel',
   description:
-    'Tus mejores momentos en pista, inmortalizados. Busca tu foto por lugar, fecha o código.',
+    'No es solo una foto, es tu momento en el Apex. Busca tu foto por lugar, fecha o código.',
   openGraph: {
     title: 'Legnar Apex',
-    description: 'Fotografía de motociclismo en pista. Busca tu foto.',
+    description: 'Fotografía deportiva de alto nivel. Busca tu foto.',
     siteName: 'Legnar Apex',
   },
 }

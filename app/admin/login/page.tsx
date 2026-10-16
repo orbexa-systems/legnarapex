@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
         className="pointer-events-none fixed inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 40% at 50% 50%, #C0392B14 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 40% at 50% 50%, #E6000014 0%, transparent 70%)',
         }}
       />
 
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={cargando}
-              className="mt-1 rounded-full bg-legnar-red py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:bg-legnar-fire disabled:opacity-50"
+              className="mt-1 rounded-full bg-legnar-red py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:bg-red-800 disabled:opacity-50"
             >
               {cargando ? 'Entrando...' : 'Entrar'}
             </button>

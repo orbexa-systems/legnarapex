@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import type { TrackLocation } from '@/lib/data/lugares'
 
 /** @deprecated Use SearchFilters instead */
@@ -12,9 +12,6 @@ export default function FiltrosBusqueda({ lugares }: { lugares: TrackLocation[] 
 
   const lugar = searchParams.get('lugar') ?? ''
   const fecha = searchParams.get('fecha') ?? ''
-
-  // Local state for the code field — only navigates on form submit
-  const [codigoInput, setCodigoInput] = useState(searchParams.get('codigo') ?? '')
 
   const setParam = useCallback(
     (key: string, value: string) => {
@@ -29,17 +26,11 @@ export default function FiltrosBusqueda({ lugares }: { lugares: TrackLocation[] 
     [searchParams, router, pathname],
   )
 
-  function handleCodigoSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setParam('codigo', codigoInput.trim().toUpperCase())
-  }
-
   function limpiarFiltros() {
-    setCodigoInput('')
     router.push(pathname, { scroll: false })
   }
 
-  const hayFiltros = lugar || fecha || searchParams.get('codigo')
+  const hayFiltros = lugar || fecha
 
   return (
     <div className="sticky top-0 z-20 border-b border-legnar-border bg-legnar-black/90 backdrop-blur-md">
@@ -75,27 +66,6 @@ export default function FiltrosBusqueda({ lugares }: { lugares: TrackLocation[] 
               className="rounded-lg border border-legnar-border bg-legnar-dark px-3 py-2.5 text-sm text-legnar-white outline-none transition-colors focus:border-legnar-red [color-scheme:dark]"
             />
           </div>
-
-          <form onSubmit={handleCodigoSubmit} className="flex flex-col gap-1.5 flex-1">
-            <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
-              Código de foto
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Ej: 2V0A9780"
-                value={codigoInput}
-                onChange={(e) => setCodigoInput(e.target.value.toUpperCase())}
-                className="flex-1 rounded-lg border border-legnar-border bg-legnar-dark px-3 py-2.5 font-mono text-sm text-legnar-white placeholder-legnar-gray/50 outline-none transition-colors focus:border-legnar-red"
-              />
-              <button
-                type="submit"
-                className="rounded-lg bg-legnar-red px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-legnar-fire"
-              >
-                Buscar
-              </button>
-            </div>
-          </form>
 
           {hayFiltros && (
             <button

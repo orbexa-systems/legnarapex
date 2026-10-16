@@ -12,7 +12,7 @@ export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
   return (
     <button
       onClick={onOpen}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-legnar-border bg-legnar-dark text-left transition-all duration-300 hover:border-legnar-red/50 hover:shadow-[0_0_24px_#C0392B22] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-legnar-red"
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-legnar-border bg-legnar-dark text-left transition-all duration-300 hover:border-legnar-red/50 hover:shadow-[0_0_24px_#FF000022] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-legnar-red"
     >
       <div
         className="relative aspect-[3/2] w-full overflow-hidden bg-legnar-dark"
@@ -43,7 +43,7 @@ export default function PhotoCard({ photo, onOpen }: PhotoCardProps) {
       </div>
 
       <div className="flex items-center justify-between px-3 py-2.5">
-        <span className="font-mono text-xs font-semibold tracking-wider text-legnar-gold">
+        <span className="font-mono text-xs font-semibold tracking-wider text-legnar-red">
           {photo.code}
         </span>
         <span className="text-[10px] text-legnar-gray">

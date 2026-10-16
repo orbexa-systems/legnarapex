@@ -2,23 +2,23 @@ const PASOS = [
   {
     numero: '01',
     emoji: '📲',
-    titulo: 'Escanea el QR en pista',
+    titulo: 'Escanea tu código QR que viene en la tarjeta',
     descripcion:
-      'Al terminar tu sesión, escanea el código QR del fotógrafo. Entra directo al sitio sin necesidad de tarjeta.',
+      'Al obtener la tarjeta, podrás ingresar directamente a nuestra página oficial Legnar Apex, para contactarnos y buscar tus fotografías.',
   },
   {
     numero: '02',
     emoji: '🔍',
     titulo: 'Busca tu foto',
     descripcion:
-      'Filtra por lugar, fecha y hora, o ingresa directamente tu código. Visualiza las fotos con marca de agua.',
+      'Al seleccionar "Buscar tu foto" podrás ingresar a un apartado de filtros donde deberás ingresar el lugar, la fecha y la hora que se te tomó la fotografía. Podrás visualizar nuestra galería semanal con la marca de agua.',
   },
   {
     numero: '03',
     emoji: '💬',
     titulo: 'Contáctanos por WhatsApp',
     descripcion:
-      'Manda el código de tu foto. Nosotros la editamos del RAW original y te la enviamos lista en minutos.',
+      'Al encontrar la foto de tu agrado, debes seleccionar "me interesa esta foto" donde nos podrás contactar directamente para poder obtener tu foto edición Apex! Nosotros editamos del RAW original y te la mandamos lista en tan solo unos minutos.',
   },
 ]
 
@@ -27,7 +27,7 @@ export default function ComoFunciona() {
     <section className="py-24 px-6">
       <div className="mx-auto max-w-5xl">
         <div className="mb-16 text-center">
-          <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-legnar-gold">
+          <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-widest text-legnar-red">
             Proceso
           </span>
           <h2
@@ -42,7 +42,7 @@ export default function ComoFunciona() {
           {PASOS.map((paso) => (
             <div
               key={paso.numero}
-              className="group relative flex flex-col gap-5 rounded-2xl border border-legnar-border bg-legnar-dark p-8 transition-all duration-300 hover:border-legnar-red/40 hover:shadow-[0_0_32px_#C0392B18]"
+              className="group relative flex flex-col gap-5 rounded-2xl border border-legnar-border bg-legnar-dark p-8 transition-all duration-300 hover:border-legnar-red/40 hover:shadow-[0_0_32px_#FF000018]"
             >
               <span
                 className="absolute right-6 top-4 text-6xl font-bold leading-none text-legnar-border select-none transition-colors duration-300 group-hover:text-legnar-red/20"
@@ -58,7 +58,7 @@ export default function ComoFunciona() {
                 <p className="text-sm leading-relaxed text-legnar-gray">{paso.descripcion}</p>
               </div>
 
-              <div className="absolute bottom-0 left-8 right-8 h-px scale-x-0 bg-gradient-to-r from-legnar-red to-legnar-fire transition-transform duration-300 group-hover:scale-x-100 rounded-full" />
+              <div className="absolute bottom-0 left-8 right-8 h-px scale-x-0 bg-gradient-to-r from-legnar-red to-red-800 transition-transform duration-300 group-hover:scale-x-100 rounded-full" />
             </div>
           ))}
         </div>
