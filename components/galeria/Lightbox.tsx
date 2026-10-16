@@ -18,22 +18,18 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
   const touchStartX = useRef<number | null>(null)
 
   const photo = photos[index]
-  const hasPrev = index > 0
-  const hasNext = index < photos.length - 1
+  const hasPrev = photos.length > 1
+  const hasNext = photos.length > 1
 
   const prev = useCallback(() => {
-    if (index > 0) {
-      setIndex((i) => i - 1)
-      setImageLoaded(false)
-    }
-  }, [index])
+    setIndex((i) => (i - 1 + photos.length) % photos.length)
+    setImageLoaded(false)
+  }, [photos.length])
 
   const next = useCallback(() => {
-    if (index < photos.length - 1) {
-      setIndex((i) => i + 1)
-      setImageLoaded(false)
-    }
-  }, [index, photos.length])
+    setIndex((i) => (i + 1) % photos.length)
+    setImageLoaded(false)
+  }, [photos.length])
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
