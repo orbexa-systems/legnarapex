@@ -71,7 +71,13 @@ export default function PhotoGrid({
       </div>
 
       {activeIndex !== null && (
-        <Lightbox photos={photos} initialIndex={activeIndex} onClose={() => setActiveIndex(null)} />
+        <Lightbox
+          photos={photos}
+          initialIndex={activeIndex}
+          onClose={() => setActiveIndex(null)}
+          hasMore={hasMore}
+          loadMore={loadMore}
+        />
       )}
     </>
   )
