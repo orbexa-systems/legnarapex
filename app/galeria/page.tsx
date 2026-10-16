@@ -87,10 +87,18 @@ export default async function GaleriaPage({
       <div className="border-b border-legnar-border/50 px-6 py-8">
         <div className="mx-auto max-w-6xl">
           <h1
-            className="text-[clamp(2rem,5vw,3.5rem)] uppercase leading-none tracking-wide text-legnar-white"
+            className="text-[clamp(2rem,5vw,3.5rem)] uppercase leading-none tracking-wide"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Apex Collection
+            <span style={{
+              background: 'linear-gradient(135deg, #F5F5F5 20%, #FF0000 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'inline-block',
+            }}>
+              Apex Collection
+            </span>
           </h1>
           <p className="mt-1 text-sm text-legnar-gray">
             Filtra por lugar, fecha y hora. Recuerda que estamos solamente los días domingos de 8 am a 1 pm.

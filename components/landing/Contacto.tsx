@@ -44,7 +44,7 @@ export default function Contacto() {
           Al encontrar la foto de tu agrado, debes seleccionar &quot;me interesa esta foto&quot; donde nos podrás contactar directamente para poder obtener tu foto edición Apex!
         </p>
         <p className="mb-10 text-legnar-gray">
-          Nosotros editamos del RAW original y te la mandamos lista en tan solo unos minutos.
+          Nosotros editamos el RAW original y te la mandamos lista en tan solo unos minutos.
         </p>
 
         <a
