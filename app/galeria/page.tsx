@@ -63,10 +63,11 @@ export default async function GaleriaPage({
           </Link>
 
           <span
-            className="text-xl uppercase tracking-widest text-legnar-white"
+            className="text-4xl uppercase tracking-widest"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Legnar Apex
+            <span className="text-legnar-white">Legnar </span>
+            <span className="text-legnar-red">Apex</span>
           </span>
 
           <a
@@ -89,10 +90,10 @@ export default async function GaleriaPage({
             className="text-[clamp(2rem,5vw,3.5rem)] uppercase leading-none tracking-wide text-legnar-white"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Tus fotos
+            Apex Collection
           </h1>
           <p className="mt-1 text-sm text-legnar-gray">
-            Filtra por lugar, fecha y franja horaria, o ingresa el código de tu tarjeta
+            Filtra por lugar, fecha y hora. Recuerda que estamos solamente los días domingos de 8 am a 1 pm.
           </p>
         </div>
       </div>

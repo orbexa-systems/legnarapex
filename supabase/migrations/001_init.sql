@@ -67,6 +67,6 @@ grant select on public.photos to authenticated;
 
 -- ─── Seed: ubicaciones iniciales ─────────────────────────────
 insert into public.locations (name, active) values
-  ('Pista Norte', true),
-  ('Pista Sur',   true)
+  ('Pista Tres Marias',          true),
+  ('Pueblito Mágico Tres Marías', true)
 on conflict do nothing;

@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import type { TrackLocation } from '@/lib/data/lugares'
 import DatePicker from './DatePicker'
 
@@ -27,8 +27,6 @@ export default function SearchFilters({ locations, slots }: SearchFiltersProps) 
   const lugar = searchParams.get('lugar') ?? ''
   const fecha = searchParams.get('fecha') ?? ''
   const franja = searchParams.get('franja') ?? ''
-
-  const [codigoInput, setCodigoInput] = useState(searchParams.get('codigo') ?? '')
 
   const setParam = useCallback(
     (key: string, value: string) => {
@@ -56,17 +54,11 @@ export default function SearchFilters({ locations, slots }: SearchFiltersProps) 
     router.push(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
-  function handleCodigoSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setParam('codigo', codigoInput.trim().toUpperCase())
-  }
-
   function clearFilters() {
-    setCodigoInput('')
     router.push(pathname, { scroll: false })
   }
 
-  const hasFilters = lugar || fecha || franja || searchParams.get('codigo')
+  const hasFilters = lugar || fecha || franja
   const showSlotPicker = !!(lugar && fecha)
 
   return (
@@ -74,7 +66,7 @@ export default function SearchFilters({ locations, slots }: SearchFiltersProps) 
       <div className="mx-auto max-w-6xl px-6 py-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:flex-wrap sm:gap-4">
 
-          <div className="flex flex-col gap-1.5 sm:w-48">
+          <div className="flex flex-col gap-1.5 sm:w-72">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
               Lugar
             </label>
@@ -92,7 +84,7 @@ export default function SearchFilters({ locations, slots }: SearchFiltersProps) 
             </select>
           </div>
 
-          <div className="flex flex-col gap-1.5 sm:w-52">
+          <div className="flex flex-col gap-1.5 sm:w-72">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
               Fecha
             </label>
@@ -122,27 +114,6 @@ export default function SearchFilters({ locations, slots }: SearchFiltersProps) 
               )}
             </div>
           )}
-
-          <form onSubmit={handleCodigoSubmit} className="flex flex-col gap-1.5 flex-1 min-w-[200px]">
-            <label className="text-[10px] font-semibold uppercase tracking-widest text-legnar-gray">
-              Código de foto
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Ej: 2V0A9780"
-                value={codigoInput}
-                onChange={(e) => setCodigoInput(e.target.value.toUpperCase())}
-                className="flex-1 rounded-lg border border-legnar-border bg-legnar-dark px-3 py-2.5 font-mono text-sm text-legnar-white placeholder-legnar-gray/50 outline-none transition-colors focus:border-legnar-red"
-              />
-              <button
-                type="submit"
-                className="rounded-lg bg-legnar-red px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-legnar-fire"
-              >
-                Buscar
-              </button>
-            </div>
-          </form>
 
           {hasFilters && (
             <button

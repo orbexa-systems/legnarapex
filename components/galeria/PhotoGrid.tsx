@@ -89,7 +89,7 @@ function EmptyPrompt() {
         <h2 className="mb-2 text-xl font-bold text-legnar-white">Busca tus fotos</h2>
         <p className="text-sm leading-relaxed text-legnar-gray">
           Selecciona el lugar y la fecha en que rodaste, elige tu franja horaria
-          y aparecerán tus fotos. También puedes buscar directo por código.
+          y aparecerán tus fotos.
         </p>
       </div>
     </div>
