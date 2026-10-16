@@ -18,7 +18,7 @@ const PASOS = [
     emoji: '💬',
     titulo: 'Contáctanos por WhatsApp',
     descripcion:
-      'Al encontrar la foto de tu agrado, debes seleccionar "me interesa esta foto" donde nos podrás contactar directamente para poder obtener tu foto edición Apex! Nosotros editamos del RAW original y te la mandamos lista en tan solo unos minutos.',
+      'Al encontrar la foto de tu agrado, debes seleccionar "me interesa esta foto" donde nos podrás contactar directamente para poder obtener tu foto edición Apex! Nosotros editamos el RAW original y te la mandamos lista en tan solo unos minutos.',
   },
 ]
 

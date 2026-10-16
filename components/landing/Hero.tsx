@@ -61,8 +61,8 @@ export default function Hero() {
         </h1>
 
         <p className="animate-fade-up-d2 max-w-xl text-lg leading-relaxed text-legnar-gray">
-          No es solo una foto,{' '}
-          <span className="text-legnar-white font-semibold">es tu momento en el Apex.</span>
+          NO ES SOLO UNA FOTO,{' '}
+          <span className="text-legnar-white font-semibold">ES TU MOMENTO EN EL APEX.</span>
         </p>
 
         <div className="animate-fade-up-d3 flex flex-col sm:flex-row gap-4 pt-2">
