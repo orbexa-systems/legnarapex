@@ -35,8 +35,8 @@ export async function GET(
       'Content-Type': contentType,
       'Content-Disposition': 'inline',
       'X-Content-Type-Options': 'nosniff',
-      // photos are immutable (never updated, deleted after 8 days) — cache 7 days at edge
-      'Cache-Control': 'public, max-age=604800',
+      // s-maxage tells Vercel's CDN to cache at edge; stale-while-revalidate serves cached bytes while refreshing
+      'Cache-Control': 'public, s-maxage=604800, stale-while-revalidate=86400',
     },
   })
 }
