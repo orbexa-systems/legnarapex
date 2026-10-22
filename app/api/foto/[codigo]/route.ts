@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
+// tells Next.js App Router to cache each unique URL at Vercel's CDN edge for 7 days
+export const revalidate = 604800
+
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ codigo: string }> },
